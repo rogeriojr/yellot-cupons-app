@@ -13,6 +13,7 @@ import {
   RegisterScreen,
   ForgotPasswordScreen,
   ResetPasswordScreen,
+  TermsScreen,
 } from "../screens/auth";
 
 // Types
@@ -122,6 +123,11 @@ const AuthNavigator: React.FC = () => {
         name="ResetPassword"
         component={ResetPasswordScreen}
         options={{ title: "Redefinir Senha" }}
+      />
+      <AuthStack.Screen
+        name="Terms"
+        component={TermsScreen}
+        options={{ headerShown: false }}
       />
     </AuthStack.Navigator>
   );

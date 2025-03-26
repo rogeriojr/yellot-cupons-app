@@ -9,9 +9,11 @@ import {
   KeyboardAvoidingView,
   Platform,
   ScrollView,
+  Image,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useAuth } from "../../contexts/AuthContext";
+import { useTheme } from "../../contexts/ThemeContext";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { AuthStackParamList } from "../../types/navigation";
 
@@ -31,20 +33,32 @@ const RegisterScreen: React.FC<RegisterScreenProps> = ({ navigation }) => {
   // Estado local para os campos do formulário
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [cpf, setCpf] = useState("");
+  const [birthdate, setBirthdate] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Obtém o estado e as ações de autenticação do contexto
-  const { register, isLoading, error, clearError } = useAuth();
+  const { register, status, error, clearError } = useAuth();
+  const { theme } = useTheme();
 
   /**
    * Manipula o envio do formulário de registro
    */
   const handleSubmit = async () => {
+    // Exibe mensagem de funcionalidade em desenvolvimento
+    Alert.alert("Aviso", "Funcionalidade em desenvolvimento");
+    return;
+
+    // Código abaixo será executado quando a funcionalidade estiver pronta
+    /*
     // Validação básica
     if (
       !name.trim() ||
       !email.trim() ||
+      !cpf.trim() ||
+      !birthdate.trim() ||
       !password.trim() ||
       !confirmPassword.trim()
     ) {
@@ -59,7 +73,15 @@ const RegisterScreen: React.FC<RegisterScreenProps> = ({ navigation }) => {
     }
 
     // Tenta registrar o usuário
-    await register({ name, email, password, confirmPassword });
+    setIsSubmitting(true);
+    try {
+      await register({ name, email, password, confirmPassword });
+    } catch (error) {
+      console.error("Register error:", error);
+    } finally {
+      setIsSubmitting(false);
+    }
+    */
   };
 
   /**
@@ -70,8 +92,45 @@ const RegisterScreen: React.FC<RegisterScreenProps> = ({ navigation }) => {
     navigation.navigate("Login");
   };
 
+  // Formata o CPF enquanto o usuário digita
+  const formatCPF = (text: string) => {
+    // Remove todos os caracteres não numéricos
+    const cleaned = text.replace(/\D/g, "");
+
+    // Aplica a máscara de CPF (XXX.XXX.XXX-XX)
+    let formatted = cleaned;
+    if (cleaned.length > 3) {
+      formatted = cleaned.substring(0, 3) + "." + cleaned.substring(3);
+    }
+    if (cleaned.length > 6) {
+      formatted = formatted.substring(0, 7) + "." + formatted.substring(7);
+    }
+    if (cleaned.length > 9) {
+      formatted = formatted.substring(0, 11) + "-" + formatted.substring(11);
+    }
+
+    return formatted.substring(0, 14); // Limita ao tamanho máximo de um CPF formatado
+  };
+
+  // Formata a data de nascimento enquanto o usuário digita
+  const formatBirthdate = (text: string) => {
+    // Remove todos os caracteres não numéricos
+    const cleaned = text.replace(/\D/g, "");
+
+    // Aplica a máscara de data (DD/MM/AAAA)
+    let formatted = cleaned;
+    if (cleaned.length > 2) {
+      formatted = cleaned.substring(0, 2) + "/" + cleaned.substring(2);
+    }
+    if (cleaned.length > 4) {
+      formatted = formatted.substring(0, 5) + "/" + formatted.substring(5);
+    }
+
+    return formatted.substring(0, 10); // Limita ao tamanho máximo de uma data formatada
+  };
+
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: "#121212" }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: theme.background }}>
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={{ flex: 1 }}
@@ -85,147 +144,178 @@ const RegisterScreen: React.FC<RegisterScreenProps> = ({ navigation }) => {
               flex: 1,
               paddingHorizontal: 24,
               paddingVertical: 32,
-              justifyContent: "center",
             }}
           >
-            <View style={{ marginBottom: 32, alignItems: "center" }}>
+            {/* Logo */}
+            <View style={{ alignItems: "center", marginBottom: 32 }}>
+              <Image
+                source={require("../../../assets/images/splash-icon.jpg")}
+                style={{ width: 100, height: 100, borderRadius: 50 }}
+                resizeMode="contain"
+              />
               <Text
                 style={{
-                  fontSize: 30,
+                  fontSize: 24,
                   fontWeight: "bold",
-                  color: "white",
-                  marginBottom: 8,
+                  color: theme.text,
+                  marginTop: 8,
                 }}
               >
                 Criar Conta
               </Text>
-              <Text style={{ fontSize: 16, color: "#9ca3af" }}>
-                Preencha os dados para se cadastrar
-              </Text>
             </View>
 
-            {/* Exibe mensagem de erro, se houver */}
-            {error && (
-              <View
-                style={{
-                  marginBottom: 16,
-                  padding: 12,
-                  backgroundColor: "rgba(127, 29, 29, 0.3)",
-                  borderRadius: 8,
-                }}
-              >
-                <Text style={{ color: "#f87171", textAlign: "center" }}>
-                  {error}
-                </Text>
-              </View>
-            )}
-
-            <View style={{ marginBottom: 16 }}>
-              <Text style={{ color: "white", fontSize: 16, marginBottom: 8 }}>
-                Nome
-              </Text>
+            {/* Formulário de registro */}
+            <View style={{ marginBottom: 24 }}>
               <TextInput
                 style={{
-                  backgroundColor: "#1E1E1E",
-                  color: "white",
-                  padding: 16,
+                  backgroundColor: theme.card,
+                  color: theme.text,
                   borderRadius: 8,
+                  padding: 16,
+                  marginBottom: 16,
+                  borderWidth: 1,
+                  borderColor: theme.border,
                 }}
-                placeholder="Seu nome completo"
-                placeholderTextColor="#666"
-                autoCapitalize="words"
+                placeholder="Nome completo"
+                placeholderTextColor={theme.secondaryText}
                 value={name}
                 onChangeText={setName}
+                autoCapitalize="words"
               />
-            </View>
 
-            <View style={{ marginBottom: 16 }}>
-              <Text style={{ color: "white", fontSize: 16, marginBottom: 8 }}>
-                Email
-              </Text>
               <TextInput
                 style={{
-                  backgroundColor: "#1E1E1E",
-                  color: "white",
-                  padding: 16,
+                  backgroundColor: theme.card,
+                  color: theme.text,
                   borderRadius: 8,
+                  padding: 16,
+                  marginBottom: 16,
+                  borderWidth: 1,
+                  borderColor: theme.border,
                 }}
-                placeholder="Seu email"
-                placeholderTextColor="#666"
-                keyboardType="email-address"
-                autoCapitalize="none"
+                placeholder="Email"
+                placeholderTextColor={theme.secondaryText}
                 value={email}
                 onChangeText={setEmail}
+                keyboardType="email-address"
+                autoCapitalize="none"
               />
-            </View>
 
-            <View style={{ marginBottom: 16 }}>
-              <Text style={{ color: "white", fontSize: 16, marginBottom: 8 }}>
-                Senha
-              </Text>
               <TextInput
                 style={{
-                  backgroundColor: "#1E1E1E",
-                  color: "white",
-                  padding: 16,
+                  backgroundColor: theme.card,
+                  color: theme.text,
                   borderRadius: 8,
+                  padding: 16,
+                  marginBottom: 16,
+                  borderWidth: 1,
+                  borderColor: theme.border,
                 }}
-                placeholder="Sua senha"
-                placeholderTextColor="#666"
-                secureTextEntry
+                placeholder="CPF"
+                placeholderTextColor={theme.secondaryText}
+                value={cpf}
+                onChangeText={(text) => setCpf(formatCPF(text))}
+                keyboardType="numeric"
+                maxLength={14}
+              />
+
+              <TextInput
+                style={{
+                  backgroundColor: theme.card,
+                  color: theme.text,
+                  borderRadius: 8,
+                  padding: 16,
+                  marginBottom: 16,
+                  borderWidth: 1,
+                  borderColor: theme.border,
+                }}
+                placeholder="Data de nascimento (DD/MM/AAAA)"
+                placeholderTextColor={theme.secondaryText}
+                value={birthdate}
+                onChangeText={(text) => setBirthdate(formatBirthdate(text))}
+                keyboardType="numeric"
+                maxLength={10}
+              />
+
+              <TextInput
+                style={{
+                  backgroundColor: theme.card,
+                  color: theme.text,
+                  borderRadius: 8,
+                  padding: 16,
+                  marginBottom: 16,
+                  borderWidth: 1,
+                  borderColor: theme.border,
+                }}
+                placeholder="Senha"
+                placeholderTextColor={theme.secondaryText}
                 value={password}
                 onChangeText={setPassword}
+                secureTextEntry
               />
-            </View>
 
-            <View style={{ marginBottom: 24 }}>
-              <Text style={{ color: "white", fontSize: 16, marginBottom: 8 }}>
-                Confirmar Senha
-              </Text>
               <TextInput
                 style={{
-                  backgroundColor: "#1E1E1E",
-                  color: "white",
-                  padding: 16,
+                  backgroundColor: theme.card,
+                  color: theme.text,
                   borderRadius: 8,
+                  padding: 16,
+                  marginBottom: 16,
+                  borderWidth: 1,
+                  borderColor: theme.border,
                 }}
-                placeholder="Confirme sua senha"
-                placeholderTextColor="#666"
-                secureTextEntry
+                placeholder="Confirmar senha"
+                placeholderTextColor={theme.secondaryText}
                 value={confirmPassword}
                 onChangeText={setConfirmPassword}
+                secureTextEntry
               />
+
+              <TouchableOpacity
+                style={{
+                  backgroundColor: theme.primary,
+                  borderRadius: 8,
+                  padding: 16,
+                  alignItems: "center",
+                  marginTop: 8,
+                }}
+                onPress={handleSubmit}
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? (
+                  <ActivityIndicator size="small" color="#FFFFFF" />
+                ) : (
+                  <Text
+                    style={{
+                      color: "#FFFFFF",
+                      fontWeight: "bold",
+                      fontSize: 16,
+                    }}
+                  >
+                    Registrar
+                  </Text>
+                )}
+              </TouchableOpacity>
             </View>
 
-            <TouchableOpacity
-              style={{
-                backgroundColor: "#5956E9",
-                paddingVertical: 16,
-                borderRadius: 8,
-                alignItems: "center",
-                marginBottom: 16,
-              }}
-              onPress={handleSubmit}
-              disabled={isLoading}
-            >
-              {isLoading ? (
-                <ActivityIndicator color="#FFFFFF" />
-              ) : (
-                <Text
-                  style={{ color: "white", fontWeight: "bold", fontSize: 16 }}
-                >
-                  Criar Conta
+            {/* Link para login */}
+            <View style={{ alignItems: "center" }}>
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                }}
+              >
+                <Text style={{ color: theme.secondaryText, marginRight: 4 }}>
+                  Já tem uma conta?
                 </Text>
-              )}
-            </TouchableOpacity>
-
-            <View style={{ flexDirection: "row", justifyContent: "center" }}>
-              <Text style={{ color: "#9ca3af", marginRight: 4 }}>
-                Já tem uma conta?
-              </Text>
-              <TouchableOpacity onPress={handleLogin}>
-                <Text style={{ color: "#5956E9" }}>Fazer login</Text>
-              </TouchableOpacity>
+                <TouchableOpacity onPress={handleLogin}>
+                  <Text style={{ color: theme.primary, fontWeight: "bold" }}>
+                    Faça login
+                  </Text>
+                </TouchableOpacity>
+              </View>
             </View>
           </View>
         </ScrollView>

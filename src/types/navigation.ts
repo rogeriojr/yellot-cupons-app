@@ -20,4 +20,5 @@ export type AuthStackParamList = {
   Register: undefined;
   ForgotPassword: undefined;
   ResetPassword: { token: string } | undefined;
+  Terms: undefined;
 };

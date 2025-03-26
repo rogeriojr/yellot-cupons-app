@@ -103,107 +103,159 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
     navigation.navigate("ForgotPassword");
   };
 
+  /**
+   * Navega para a tela de termos
+   */
+  const navigateToTerms = () => {
+    clearError();
+    navigation.navigate("Terms");
+  };
+
   return (
-    <SafeAreaView
-      style={[styles.container, { backgroundColor: theme.background }]}
-    >
+    <SafeAreaView style={{ flex: 1, backgroundColor: theme.background }}>
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
-        style={styles.keyboardAvoidingView}
+        style={{ flex: 1 }}
       >
         <ScrollView
-          contentContainerStyle={styles.scrollView}
+          contentContainerStyle={{ flexGrow: 1 }}
           keyboardShouldPersistTaps="handled"
         >
-          <View style={styles.logoContainer}>
-            <Image
-              source={require("../../../assets/images/yerllog-mobile.jpg")}
-              style={styles.logo}
-              resizeMode="contain"
-            />
-          </View>
-
-          <Text style={[styles.title, { color: theme.text }]}>Login</Text>
-
-          <View style={styles.formContainer}>
-            <View
-              style={[
-                styles.inputContainer,
-                { backgroundColor: theme.card, borderColor: theme.border },
-              ]}
-            >
-              <Text style={[styles.inputLabel, { color: theme.secondaryText }]}>
-                Email
+          <View
+            style={{
+              flex: 1,
+              paddingHorizontal: 24,
+              paddingVertical: 32,
+              justifyContent: "center",
+            }}
+          >
+            {/* Logo */}
+            <View style={{ alignItems: "center", marginBottom: 40 }}>
+              <Image
+                source={require("../../../assets/images/splash-icon.jpg")}
+                style={{ width: 150, height: 150, borderRadius: 75 }}
+                resizeMode="contain"
+              />
+              <Text
+                style={{
+                  fontSize: 24,
+                  fontWeight: "bold",
+                  color: theme.text,
+                  marginTop: 16,
+                }}
+              >
+                Yellot Cupons
               </Text>
+            </View>
+
+            {/* Formulário de login */}
+            <View style={{ marginBottom: 24 }}>
               <TextInput
-                style={[styles.input, { color: theme.text }]}
-                placeholder="Seu email"
+                style={{
+                  backgroundColor: theme.card,
+                  color: theme.text,
+                  borderRadius: 8,
+                  padding: 16,
+                  marginBottom: 16,
+                  borderWidth: 1,
+                  borderColor: theme.border,
+                }}
+                placeholder="Email"
                 placeholderTextColor={theme.secondaryText}
-                keyboardType="email-address"
-                autoCapitalize="none"
                 value={email}
                 onChangeText={setEmail}
-                editable={!isSubmitting}
+                keyboardType="email-address"
+                autoCapitalize="none"
               />
-            </View>
 
-            <View
-              style={[
-                styles.inputContainer,
-                { backgroundColor: theme.card, borderColor: theme.border },
-              ]}
-            >
-              <Text style={[styles.inputLabel, { color: theme.secondaryText }]}>
-                Senha
-              </Text>
               <TextInput
-                style={[styles.input, { color: theme.text }]}
-                placeholder="Sua senha"
+                style={{
+                  backgroundColor: theme.card,
+                  color: theme.text,
+                  borderRadius: 8,
+                  padding: 16,
+                  marginBottom: 16,
+                  borderWidth: 1,
+                  borderColor: theme.border,
+                }}
+                placeholder="Senha"
                 placeholderTextColor={theme.secondaryText}
-                secureTextEntry
                 value={password}
                 onChangeText={setPassword}
-                editable={!isSubmitting}
+                secureTextEntry
               />
-            </View>
 
-            <TouchableOpacity
-              style={[styles.forgotPasswordButton]}
-              onPress={navigateToForgotPassword}
-              disabled={isSubmitting}
-            >
-              <Text
-                style={[styles.forgotPasswordText, { color: theme.primary }]}
-              >
-                Esqueceu sua senha?
-              </Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={[styles.loginButton, { backgroundColor: theme.primary }]}
-              onPress={handleSubmit}
-              disabled={isSubmitting}
-            >
-              {isSubmitting ? (
-                <ActivityIndicator size="small" color="#FFFFFF" />
-              ) : (
-                <Text style={styles.loginButtonText}>Entrar</Text>
-              )}
-            </TouchableOpacity>
-
-            <View style={styles.registerContainer}>
-              <Text
-                style={[styles.registerText, { color: theme.secondaryText }]}
-              >
-                Não tem uma conta?
-              </Text>
               <TouchableOpacity
-                onPress={navigateToRegister}
+                style={{
+                  backgroundColor: theme.primary,
+                  borderRadius: 8,
+                  padding: 16,
+                  alignItems: "center",
+                }}
+                onPress={handleSubmit}
                 disabled={isSubmitting}
               >
-                <Text style={[styles.registerLink, { color: theme.primary }]}>
-                  {" "}
-                  Cadastre-se
+                {isSubmitting ? (
+                  <ActivityIndicator size="small" color="#FFFFFF" />
+                ) : (
+                  <Text
+                    style={{
+                      color: "#FFFFFF",
+                      fontWeight: "bold",
+                      fontSize: 16,
+                    }}
+                  >
+                    Entrar
+                  </Text>
+                )}
+              </TouchableOpacity>
+            </View>
+
+            {/* Links */}
+            <View style={{ alignItems: "center" }}>
+              <TouchableOpacity
+                onPress={navigateToForgotPassword}
+                style={{ marginBottom: 16 }}
+              >
+                <Text
+                  style={{
+                    color: theme.primary,
+                    fontSize: 14,
+                  }}
+                >
+                  Esqueci minha senha
+                </Text>
+              </TouchableOpacity>
+
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  marginBottom: 16,
+                }}
+              >
+                <Text style={{ color: theme.secondaryText, marginRight: 4 }}>
+                  Não tem uma conta?
+                </Text>
+                <TouchableOpacity onPress={navigateToRegister}>
+                  <Text style={{ color: theme.primary, fontWeight: "bold" }}>
+                    Registre-se
+                  </Text>
+                </TouchableOpacity>
+              </View>
+
+              <TouchableOpacity onPress={navigateToTerms}>
+                <Text
+                  style={{
+                    color: theme.secondaryText,
+                    fontSize: 12,
+                    textAlign: "center",
+                  }}
+                >
+                  Ao continuar, você concorda com nossos{" "}
+                  <Text style={{ color: theme.primary }}>
+                    Termos e Condições
+                  </Text>
                 </Text>
               </TouchableOpacity>
             </View>
