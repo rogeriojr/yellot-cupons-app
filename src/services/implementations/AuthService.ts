@@ -46,11 +46,11 @@ class AuthService implements IAuthService {
 
   /**
    * Solicita recuperação de senha
-   * @param data Dados para recuperação de senha
+   * @param email Email do usuário
    */
-  async forgotPassword(data: ForgotPasswordData): Promise<void> {
+  async forgotPassword(email: string): Promise<void> {
     try {
-      await api.post('/auth/forgot-password', data);
+      await api.post('/auth/forgot-password', { email });
     } catch (error) {
       console.error('Error during forgot password:', error);
       throw new Error('Falha ao solicitar recuperação de senha. Tente novamente.');
@@ -59,11 +59,13 @@ class AuthService implements IAuthService {
 
   /**
    * Redefine a senha do usuário
-   * @param data Dados para redefinição de senha
+   * @param token Token de redefinição de senha
+   * @param password Nova senha
+   * @param confirmPassword Confirmação da nova senha
    */
-  async resetPassword(data: ResetPasswordData): Promise<void> {
+  async resetPassword(token: string, password: string, confirmPassword: string): Promise<void> {
     try {
-      await api.post('/auth/reset-password', data);
+      await api.post('/auth/reset-password', { token, password, confirmPassword });
     } catch (error) {
       console.error('Error during reset password:', error);
       throw new Error('Falha ao redefinir senha. Verifique o token e tente novamente.');

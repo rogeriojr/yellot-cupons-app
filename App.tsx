@@ -46,16 +46,16 @@ const AppContent = () => {
       <Tab.Navigator
         screenOptions={({ route }) => ({
           tabBarIcon: ({ focused, color, size }) => {
-            let iconName: keyof typeof Ionicons.glyphMap = "ios-home";
+            let iconName: keyof typeof Ionicons.glyphMap = "home";
 
             if (route.name === "Cupons") {
-              iconName = "ios-ticket";
+              iconName = "ticket";
             } else if (route.name === "Promos") {
-              iconName = "ios-flash";
+              iconName = "flash";
             } else if (route.name === "Pedidos") {
-              iconName = "ios-list";
+              iconName = "list";
             } else if (route.name === "Ofertas") {
-              iconName = "ios-gift";
+              iconName = "gift";
             }
 
             return <Ionicons name={iconName} size={size} color={color} />;

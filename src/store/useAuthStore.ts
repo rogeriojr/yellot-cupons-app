@@ -112,7 +112,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
       set({ status: 'loading', error: null });
 
       // Chama o serviço de autenticação
-      await authService.forgotPassword({ email });
+      await authService.forgotPassword(email);
 
       set({ status: 'idle', error: null });
     } catch (error) {
@@ -138,7 +138,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
       set({ status: 'loading', error: null });
 
       // Chama o serviço de autenticação
-      await authService.resetPassword({ token, password, confirmPassword });
+      await authService.resetPassword(token, password, confirmPassword);
 
       set({ status: 'idle', error: null });
     } catch (error) {

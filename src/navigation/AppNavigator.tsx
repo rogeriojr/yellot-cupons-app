@@ -3,14 +3,17 @@ import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
+import { View, Text, ActivityIndicator } from "react-native";
 import { useAuth } from "../contexts/AuthContext";
 
 // Screens
 import CouponsScreen from "../screens/CouponsScreen";
-import LoginScreen from "../screens/auth/LoginScreen";
-import RegisterScreen from "../screens/auth/RegisterScreen";
-import ForgotPasswordScreen from "../screens/auth/ForgotPasswordScreen";
-import ResetPasswordScreen from "../screens/auth/ResetPasswordScreen";
+import {
+  LoginScreen,
+  RegisterScreen,
+  ForgotPasswordScreen,
+  ResetPasswordScreen,
+} from "../screens/auth";
 
 // Types
 import { RootTabParamList, AuthStackParamList } from "../types/navigation";
@@ -43,16 +46,16 @@ const TabNavigator: React.FC = () => {
     <Tab.Navigator
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, color, size }) => {
-          let iconName: keyof typeof Ionicons.glyphMap = "ios-home";
+          let iconName: keyof typeof Ionicons.glyphMap = "home";
 
           if (route.name === "Cupons") {
-            iconName = "ios-ticket";
+            iconName = "ticket";
           } else if (route.name === "Promos") {
-            iconName = "ios-flash";
+            iconName = "flash";
           } else if (route.name === "Pedidos") {
-            iconName = "ios-list";
+            iconName = "list";
           } else if (route.name === "Ofertas") {
-            iconName = "ios-gift";
+            iconName = "gift";
           }
 
           return <Ionicons name={iconName} size={size} color={color} />;

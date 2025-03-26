@@ -71,36 +71,66 @@ const RegisterScreen: React.FC<RegisterScreenProps> = ({ navigation }) => {
   };
 
   return (
-    <SafeAreaView className="flex-1 bg-[#121212]">
+    <SafeAreaView style={{ flex: 1, backgroundColor: "#121212" }}>
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
-        className="flex-1"
+        style={{ flex: 1 }}
       >
         <ScrollView
           contentContainerStyle={{ flexGrow: 1 }}
           keyboardShouldPersistTaps="handled"
         >
-          <View className="flex-1 px-6 py-8 justify-center">
-            <View className="mb-8 items-center">
-              <Text className="text-3xl font-bold text-white mb-2">
+          <View
+            style={{
+              flex: 1,
+              paddingHorizontal: 24,
+              paddingVertical: 32,
+              justifyContent: "center",
+            }}
+          >
+            <View style={{ marginBottom: 32, alignItems: "center" }}>
+              <Text
+                style={{
+                  fontSize: 30,
+                  fontWeight: "bold",
+                  color: "white",
+                  marginBottom: 8,
+                }}
+              >
                 Criar Conta
               </Text>
-              <Text className="text-base text-gray-400">
+              <Text style={{ fontSize: 16, color: "#9ca3af" }}>
                 Preencha os dados para se cadastrar
               </Text>
             </View>
 
             {/* Exibe mensagem de erro, se houver */}
             {error && (
-              <View className="mb-4 p-3 bg-red-900/30 rounded-lg">
-                <Text className="text-red-400 text-center">{error}</Text>
+              <View
+                style={{
+                  marginBottom: 16,
+                  padding: 12,
+                  backgroundColor: "rgba(127, 29, 29, 0.3)",
+                  borderRadius: 8,
+                }}
+              >
+                <Text style={{ color: "#f87171", textAlign: "center" }}>
+                  {error}
+                </Text>
               </View>
             )}
 
-            <View className="mb-4">
-              <Text className="text-white text-base mb-2">Nome</Text>
+            <View style={{ marginBottom: 16 }}>
+              <Text style={{ color: "white", fontSize: 16, marginBottom: 8 }}>
+                Nome
+              </Text>
               <TextInput
-                className="bg-[#1E1E1E] text-white p-4 rounded-lg"
+                style={{
+                  backgroundColor: "#1E1E1E",
+                  color: "white",
+                  padding: 16,
+                  borderRadius: 8,
+                }}
                 placeholder="Seu nome completo"
                 placeholderTextColor="#666"
                 autoCapitalize="words"
@@ -109,10 +139,17 @@ const RegisterScreen: React.FC<RegisterScreenProps> = ({ navigation }) => {
               />
             </View>
 
-            <View className="mb-4">
-              <Text className="text-white text-base mb-2">Email</Text>
+            <View style={{ marginBottom: 16 }}>
+              <Text style={{ color: "white", fontSize: 16, marginBottom: 8 }}>
+                Email
+              </Text>
               <TextInput
-                className="bg-[#1E1E1E] text-white p-4 rounded-lg"
+                style={{
+                  backgroundColor: "#1E1E1E",
+                  color: "white",
+                  padding: 16,
+                  borderRadius: 8,
+                }}
                 placeholder="Seu email"
                 placeholderTextColor="#666"
                 keyboardType="email-address"
@@ -122,10 +159,17 @@ const RegisterScreen: React.FC<RegisterScreenProps> = ({ navigation }) => {
               />
             </View>
 
-            <View className="mb-4">
-              <Text className="text-white text-base mb-2">Senha</Text>
+            <View style={{ marginBottom: 16 }}>
+              <Text style={{ color: "white", fontSize: 16, marginBottom: 8 }}>
+                Senha
+              </Text>
               <TextInput
-                className="bg-[#1E1E1E] text-white p-4 rounded-lg"
+                style={{
+                  backgroundColor: "#1E1E1E",
+                  color: "white",
+                  padding: 16,
+                  borderRadius: 8,
+                }}
                 placeholder="Sua senha"
                 placeholderTextColor="#666"
                 secureTextEntry
@@ -134,10 +178,17 @@ const RegisterScreen: React.FC<RegisterScreenProps> = ({ navigation }) => {
               />
             </View>
 
-            <View className="mb-6">
-              <Text className="text-white text-base mb-2">Confirmar Senha</Text>
+            <View style={{ marginBottom: 24 }}>
+              <Text style={{ color: "white", fontSize: 16, marginBottom: 8 }}>
+                Confirmar Senha
+              </Text>
               <TextInput
-                className="bg-[#1E1E1E] text-white p-4 rounded-lg"
+                style={{
+                  backgroundColor: "#1E1E1E",
+                  color: "white",
+                  padding: 16,
+                  borderRadius: 8,
+                }}
                 placeholder="Confirme sua senha"
                 placeholderTextColor="#666"
                 secureTextEntry
@@ -147,23 +198,33 @@ const RegisterScreen: React.FC<RegisterScreenProps> = ({ navigation }) => {
             </View>
 
             <TouchableOpacity
-              className="bg-[#5956E9] py-4 rounded-lg items-center mb-4"
+              style={{
+                backgroundColor: "#5956E9",
+                paddingVertical: 16,
+                borderRadius: 8,
+                alignItems: "center",
+                marginBottom: 16,
+              }}
               onPress={handleSubmit}
               disabled={isLoading}
             >
               {isLoading ? (
                 <ActivityIndicator color="#FFFFFF" />
               ) : (
-                <Text className="text-white font-bold text-base">
+                <Text
+                  style={{ color: "white", fontWeight: "bold", fontSize: 16 }}
+                >
                   Criar Conta
                 </Text>
               )}
             </TouchableOpacity>
 
-            <View className="flex-row justify-center">
-              <Text className="text-gray-400 mr-1">Já tem uma conta?</Text>
+            <View style={{ flexDirection: "row", justifyContent: "center" }}>
+              <Text style={{ color: "#9ca3af", marginRight: 4 }}>
+                Já tem uma conta?
+              </Text>
               <TouchableOpacity onPress={handleLogin}>
-                <Text className="text-[#5956E9]">Fazer login</Text>
+                <Text style={{ color: "#5956E9" }}>Fazer login</Text>
               </TouchableOpacity>
             </View>
           </View>

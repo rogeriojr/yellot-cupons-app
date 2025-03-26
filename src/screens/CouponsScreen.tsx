@@ -11,6 +11,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { useCouponStore } from "../store/useCouponStore";
 import { CouponHeader, FilterBar, CouponMonthSection } from "../components";
 import { groupCouponsByMonth } from "../utils/couponUtils";
+import { useTheme } from "../contexts/ThemeContext";
 
 const CouponsScreen: React.FC = () => {
   const { filteredCoupons, isLoading, error, fetchCoupons } = useCouponStore();
