@@ -40,8 +40,12 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
   // Monitora mudanças no status de autenticação
   useEffect(() => {
     if (status === "error" && error) {
-      Alert.alert("Erro", error);
-      clearError();
+      const timer = setTimeout(() => {
+        Alert.alert("Erro", error);
+        clearError();
+      }, 5000); // 5000 milissegundos = 5 segundos
+
+      return () => clearTimeout(timer); // Limpa o timer se o componente for desmontado
     }
     setIsSubmitting(status === "loading");
   }, [status, error]);
