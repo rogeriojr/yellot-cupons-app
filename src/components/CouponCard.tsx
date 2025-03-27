@@ -34,7 +34,10 @@ const CouponCard: React.FC<CouponCardProps> = ({ coupon }) => {
   };
 
   const handleViewDetails = () => {
-    navigation.navigate("CouponDetail", { coupon });
+    navigation.navigate("Cupons", {
+      screen: "CouponDetail",
+      params: { coupon },
+    });
   };
 
   return (

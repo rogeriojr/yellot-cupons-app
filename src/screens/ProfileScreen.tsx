@@ -52,7 +52,7 @@ const ProfileScreen: React.FC = () => {
         <View style={{ width: 24 }} />
       </View>
 
-      <ScrollView style={styles.container}>
+      <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
         <View
           style={[
             styles.avatarContainer,

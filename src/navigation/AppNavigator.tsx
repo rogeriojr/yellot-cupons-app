@@ -45,6 +45,24 @@ const AuthStack = createNativeStackNavigator<AuthStackParamList>();
 /**
  * Navegador de abas para usuários autenticados
  */
+// Stack Navigator para as telas dentro da navegação autenticada
+const MainStack = createNativeStackNavigator();
+
+// Stack Navigator para as telas de cupons
+const CouponStack: React.FC = () => {
+  return (
+    <MainStack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
+      <MainStack.Screen name="CouponsMain" component={CouponsScreen} />
+      <MainStack.Screen name="CouponDetail" component={CouponDetailScreen} />
+      <MainStack.Screen name="Profile" component={ProfileScreen} />
+    </MainStack.Navigator>
+  );
+};
+
 const TabNavigator: React.FC = () => {
   return (
     <Tab.Navigator
@@ -80,24 +98,10 @@ const TabNavigator: React.FC = () => {
         },
       })}
     >
-      <Tab.Screen name="Cupons" component={CouponsScreen} />
+      <Tab.Screen name="Cupons" component={CouponStack} />
       <Tab.Screen name="Procurar" component={PlaceholderScreen} />
       <Tab.Screen name="Histórico" component={PlaceholderScreen} />
       <Tab.Screen name="Carteira" component={PlaceholderScreen} />
-      <Tab.Screen
-        name="Profile"
-        component={ProfileScreen}
-        options={{
-          tabBarStyle: { display: "none" },
-        }}
-      />
-      <Tab.Screen
-        name="CouponDetail"
-        component={CouponDetailScreen}
-        options={{
-          tabBarStyle: { display: "none" },
-        }}
-      />
     </Tab.Navigator>
   );
 };

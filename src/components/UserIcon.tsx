@@ -16,7 +16,9 @@ const UserIcon: React.FC<UserIconProps> = ({ size = 24 }) => {
     useNavigation<NativeStackNavigationProp<RootTabParamList>>();
 
   const handlePress = () => {
-    navigation.navigate("Profile");
+    navigation.navigate("Cupons", {
+      screen: "Profile",
+    });
   };
 
   return (
