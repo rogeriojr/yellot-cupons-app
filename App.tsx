@@ -109,7 +109,7 @@ export default function App() {
     <SafeAreaProvider>
       <AuthProvider>
         <ThemeProvider>
-          <AppContent />
+          <AppNavigator />
         </ThemeProvider>
       </AuthProvider>
     </SafeAreaProvider>
