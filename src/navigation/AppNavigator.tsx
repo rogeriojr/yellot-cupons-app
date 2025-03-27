@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
-import { View, Text, ActivityIndicator } from "react-native";
+import { View, Text, ActivityIndicator, Alert } from "react-native";
 import { useAuth } from "../contexts/AuthContext";
 
 // Screens
@@ -154,7 +154,41 @@ const PlaceholderScreen: React.FC = () => {
  * Decide qual navegador exibir com base no estado de autenticação
  */
 const AppNavigator: React.FC = () => {
-  const { isAuthenticated, isLoading } = useAuth();
+  const { isAuthenticated, isLoading, login } = useAuth();
+  const [showAlert, setShowAlert] = useState(true);
+
+  // Função para realizar login automático com o usuário de teste
+  const handleAutoLogin = async () => {
+    try {
+      await login({
+        email: "user@yellot.mob",
+        password: "123456",
+      });
+    } catch (error) {
+      console.error("Auto login error:", error);
+      Alert.alert("Erro", "Não foi possível realizar o login automático.");
+    }
+  };
+
+  // Exibe o alerta de MVP ao iniciar o aplicativo
+  useEffect(() => {
+    if (!isAuthenticated && !isLoading && showAlert) {
+      Alert.alert(
+        "Aplicativo MVP de Teste",
+        "Este aplicativo é um MVP de teste. Clique em continuar para poder utilizar o usuário teste.",
+        [
+          {
+            text: "Continuar",
+            onPress: () => {
+              setShowAlert(false);
+              handleAutoLogin();
+            },
+          },
+        ],
+        { cancelable: false }
+      );
+    }
+  }, [isAuthenticated, isLoading, showAlert]);
 
   // Exibe um indicador de carregamento enquanto verifica a autenticação
   if (isLoading) {
