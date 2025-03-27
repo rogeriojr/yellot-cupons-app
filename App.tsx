@@ -8,6 +8,7 @@ import { Ionicons } from "@expo/vector-icons";
 
 // Screens
 import CouponsScreen from "./src/screens/CouponsScreen";
+import ProfileScreen from "./src/screens/ProfileScreen";
 
 // Navegação
 import AppNavigator from "./src/navigation/AppNavigator";
@@ -21,6 +22,7 @@ import { RootTabParamList } from "./src/types/navigation";
 
 // Components
 import ThemeToggle from "./src/components/ThemeToggle";
+import UserIcon from "./src/components/UserIcon";
 
 const Tab = createBottomTabNavigator<RootTabParamList>();
 
@@ -89,8 +91,9 @@ const AppContent = () => {
               color: theme.text,
             },
             headerRight: () => (
-              <View style={{ marginRight: 16 }}>
+              <View style={{ flexDirection: "row", marginRight: 16, gap: 8 }}>
                 <ThemeToggle />
+                <UserIcon />
               </View>
             ),
           }}
@@ -98,6 +101,14 @@ const AppContent = () => {
         <Tab.Screen name="Procurar" component={PlaceholderScreen} />
         <Tab.Screen name="Histórico" component={PlaceholderScreen} />
         <Tab.Screen name="Carteira" component={PlaceholderScreen} />
+        <Tab.Screen
+          name="Profile"
+          component={ProfileScreen}
+          options={{
+            tabBarButton: () => null,
+            tabBarVisible: false,
+          }}
+        />
       </Tab.Navigator>
       <StatusBar style={isDarkMode ? "light" : "dark"} />
     </NavigationContainer>
@@ -109,7 +120,7 @@ export default function App() {
     <SafeAreaProvider>
       <AuthProvider>
         <ThemeProvider>
-          <AppNavigator />
+          <AppContent />
         </ThemeProvider>
       </AuthProvider>
     </SafeAreaProvider>

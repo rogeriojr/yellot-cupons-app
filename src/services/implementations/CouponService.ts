@@ -12,6 +12,7 @@ export class CouponService implements ICouponService {
    */
   async fetchAllCoupons(): Promise<Coupon[]> {
     try {
+      // Consumindo a API real de cupons
       const response = await apiClient.get('/');
       return response.data;
     } catch (error) {

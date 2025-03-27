@@ -59,7 +59,8 @@ export const ThemeProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
   const deviceTheme = useColorScheme();
-  const [isDarkMode, setIsDarkMode] = useState<boolean>(deviceTheme === "dark");
+  // Definindo o tema dark como padrão, independente do tema do dispositivo
+  const [isDarkMode, setIsDarkMode] = useState<boolean>(true);
 
   // Carregar preferência de tema salva
   useEffect(() => {

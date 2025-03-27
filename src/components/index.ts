@@ -4,3 +4,4 @@ export { default as CouponHeader } from './CouponHeader';
 export { default as CouponMonthSection } from './CouponMonthSection';
 export { default as FilterBar } from './FilterBar';
 export { default as ThemeToggle } from './ThemeToggle';
+export { default as UserIcon } from './UserIcon';

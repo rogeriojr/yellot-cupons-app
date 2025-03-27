@@ -4,10 +4,12 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
 import { View, Text, ActivityIndicator, Alert } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useAuth } from "../contexts/AuthContext";
 
 // Screens
 import CouponsScreen from "../screens/CouponsScreen";
+import ProfileScreen from "../screens/ProfileScreen";
 import {
   LoginScreen,
   RegisterScreen,
@@ -81,6 +83,14 @@ const TabNavigator: React.FC = () => {
       <Tab.Screen name="Procurar" component={PlaceholderScreen} />
       <Tab.Screen name="Histórico" component={PlaceholderScreen} />
       <Tab.Screen name="Carteira" component={PlaceholderScreen} />
+      <Tab.Screen
+        name="Profile"
+        component={ProfileScreen}
+        options={{
+          tabBarButton: () => null,
+          tabBarVisible: false,
+        }}
+      />
     </Tab.Navigator>
   );
 };
@@ -162,7 +172,7 @@ const AppNavigator: React.FC = () => {
     try {
       await login({
         email: "user@yellot.mob",
-        password: "123456",
+        password: "123456789",
       });
     } catch (error) {
       console.error("Auto login error:", error);
@@ -170,24 +180,33 @@ const AppNavigator: React.FC = () => {
     }
   };
 
-  // Exibe o alerta de MVP ao iniciar o aplicativo
+  // Exibe o alerta de MVP ao iniciar o aplicativo apenas se não houver usuário no storage
   useEffect(() => {
-    if (!isAuthenticated && !isLoading && showAlert) {
-      Alert.alert(
-        "Aplicativo MVP de Teste",
-        "Este aplicativo é um MVP de teste. Clique em continuar para poder utilizar o usuário teste.",
-        [
-          {
-            text: "Continuar",
-            onPress: () => {
-              setShowAlert(false);
-              handleAutoLogin();
-            },
-          },
-        ],
-        { cancelable: false }
-      );
-    }
+    const checkUserInStorage = async () => {
+      try {
+        const userInStorage = await AsyncStorage.getItem("@yellot_user");
+        if (!userInStorage && !isAuthenticated && !isLoading && showAlert) {
+          Alert.alert(
+            "Aplicativo MVP de Teste",
+            "Este aplicativo é um MVP de teste. Clique em continuar para poder utilizar o usuário teste.",
+            [
+              {
+                text: "Continuar",
+                onPress: () => {
+                  setShowAlert(false);
+                  handleAutoLogin();
+                },
+              },
+            ],
+            { cancelable: false }
+          );
+        }
+      } catch (error) {
+        console.error("Erro ao verificar usuário no storage:", error);
+      }
+    };
+
+    checkUserInStorage();
   }, [isAuthenticated, isLoading, showAlert]);
 
   // Exibe um indicador de carregamento enquanto verifica a autenticação

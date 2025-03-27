@@ -49,6 +49,7 @@ export const useCouponStore = create<CouponState>((set, get) => ({
     const filteredDate = new Date(now.getTime());
     filteredDate.setDate(now.getDate() + days);
 
+    // Filtra os cupons que expiram dentro do período selecionado
     const filtered = coupons.filter(coupon => {
       const expireDate = new Date(coupon.expire_at);
       return expireDate <= filteredDate;
