@@ -22,7 +22,7 @@ export const useCouponStore = create<CouponState>((set, get) => ({
   fetchCoupons: async () => {
     set({ isLoading: true, error: null });
     try {
-      const response = await api.get('/');
+      const response = await api.get('');
       set({ coupons: response.data, filteredCoupons: response.data, isLoading: false });
 
       // Apply current filter if exists

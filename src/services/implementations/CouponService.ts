@@ -13,7 +13,9 @@ export class CouponService implements ICouponService {
   async fetchAllCoupons(): Promise<Coupon[]> {
     try {
       // Consumindo a API real de cupons
-      const response = await apiClient.get('/');
+      // A URL base já está configurada no apiClient, então não precisamos adicionar nenhum caminho
+      const response = await apiClient.get('');
+      console.log(response, 'response')
       return response.data;
     } catch (error) {
       console.error('Error fetching coupons:', error);

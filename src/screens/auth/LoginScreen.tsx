@@ -17,6 +17,7 @@ import { useAuth } from "../../contexts/AuthContext";
 import { useTheme } from "../../contexts/ThemeContext";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { AuthStackParamList } from "../../types/navigation";
+import { Ionicons } from "@expo/vector-icons";
 
 /**
  * Props para a tela de login
@@ -73,6 +74,18 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
     }
 
     return true;
+  };
+
+  // Função para realizar login automático com o usuário de teste
+  const handleAutoLogin = async () => {
+    try {
+      await login({
+        email: "user@yellot.mob",
+        password: "123456789",
+      });
+    } catch (error) {
+      console.error("Auto login error:", error);
+    }
   };
 
   /**
@@ -150,6 +163,31 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
               >
                 Yellot Cupons
               </Text>
+              <TouchableOpacity
+                style={{
+                  backgroundColor: theme.primary,
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  paddingVertical: 12,
+                  paddingHorizontal: 32,
+                  borderRadius: 8,
+                  marginTop: 16,
+                }}
+                onPress={handleAutoLogin}
+              >
+                <Ionicons
+                  name="bug-outline"
+                  size={20}
+                  color="#fff"
+                  style={{ marginRight: 10 }}
+                />
+                <Text
+                  style={{ color: "#fff", fontSize: 16, fontWeight: "bold" }}
+                >
+                  Logar como testador
+                </Text>
+              </TouchableOpacity>
             </View>
 
             {/* Formulário de login */}
