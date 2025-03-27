@@ -69,27 +69,35 @@ const CouponCard: React.FC<CouponCardProps> = ({ coupon }) => {
         </Text>
       </View>
 
-      <View style={{ flexDirection: "column", alignItems: "flex-end" }}>
-        <View
-          style={{
-            height: 8,
-            width: 8,
-            borderRadius: 4,
-            marginRight: 6,
-            backgroundColor: isActive
-              ? theme.statusActive
-              : theme.statusInactive,
-          }}
-        />
-        <Text
-          style={{
-            fontSize: 12,
-            color: isActive ? theme.statusActive : theme.statusInactive,
-            marginBottom: 8,
-          }}
-        >
-          {isActive ? "Ativo" : "Expirado"}
-        </Text>
+      <View
+        style={{
+          flexDirection: "column",
+          alignItems: "flex-end",
+          height: 80,
+          justifyContent: "space-between",
+        }}
+      >
+        <View style={{ flexDirection: "row", alignItems: "center" }}>
+          <View
+            style={{
+              height: 8,
+              width: 8,
+              borderRadius: 4,
+              marginRight: 6,
+              backgroundColor: isActive
+                ? theme.statusActive
+                : theme.statusInactive,
+            }}
+          />
+          <Text
+            style={{
+              fontSize: 12,
+              color: isActive ? theme.statusActive : theme.statusInactive,
+            }}
+          >
+            {isActive ? "Ativo" : "Expirado"}
+          </Text>
+        </View>
 
         <TouchableOpacity
           onPress={handleViewDetails}

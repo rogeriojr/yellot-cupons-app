@@ -34,8 +34,19 @@ const CouponMonthSection: React.FC<CouponMonthSectionProps> = ({
       >
         {formattedMonth}
       </Text>
-      {coupons.map((coupon) => (
-        <CouponCard key={coupon.code} coupon={coupon} />
+      {coupons.map((coupon, index) => (
+        <React.Fragment key={coupon.code}>
+          <CouponCard coupon={coupon} />
+          {index < coupons.length - 1 && (
+            <View
+              style={{
+                height: 1,
+                backgroundColor: theme.border,
+                marginVertical: 8,
+              }}
+            />
+          )}
+        </React.Fragment>
       ))}
     </View>
   );
