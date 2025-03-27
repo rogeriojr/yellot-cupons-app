@@ -6,11 +6,15 @@ import { Ionicons } from "@expo/vector-icons";
 import { View, Text, ActivityIndicator, Alert } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useAuth } from "../contexts/AuthContext";
+import { useTheme } from "../contexts/ThemeContext";
+import ThemeToggle from "../components/ThemeToggle";
+import UserIcon from "../components/UserIcon";
 
 // Screens
 import CouponsScreen from "../screens/CouponsScreen";
 import ProfileScreen from "../screens/ProfileScreen";
 import CouponDetailScreen from "../screens/CouponDetailScreen";
+import HistoryScreen from "../screens/HistoryScreen";
 import {
   LoginScreen,
   RegisterScreen,
@@ -64,6 +68,8 @@ const CouponStack: React.FC = () => {
 };
 
 const TabNavigator: React.FC = () => {
+  const { theme } = useTheme();
+
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
@@ -82,12 +88,12 @@ const TabNavigator: React.FC = () => {
 
           return <Ionicons name={iconName} size={size} color={color} />;
         },
-        tabBarActiveTintColor: "#FFCC00",
-        tabBarInactiveTintColor: "#888888",
+        tabBarActiveTintColor: theme.notification,
+        tabBarInactiveTintColor: theme.secondaryText,
         headerShown: false,
         tabBarStyle: {
-          backgroundColor: "#1E1E1E",
-          borderTopColor: "#333333",
+          backgroundColor: theme.card,
+          borderTopColor: theme.border,
           paddingTop: 5,
           height: 60,
           paddingBottom: 8,
@@ -98,9 +104,28 @@ const TabNavigator: React.FC = () => {
         },
       })}
     >
-      <Tab.Screen name="Cupons" component={CouponStack} />
+      <Tab.Screen
+        name="Cupons"
+        component={CouponStack}
+        options={{
+          headerShown: true,
+          headerTitle: "",
+          headerStyle: {
+            backgroundColor: theme.card,
+          },
+          headerTitleStyle: {
+            color: theme.text,
+          },
+          headerRight: () => (
+            <View style={{ flexDirection: "row", marginRight: 16, gap: 8 }}>
+              <ThemeToggle />
+              <UserIcon />
+            </View>
+          ),
+        }}
+      />
       <Tab.Screen name="Procurar" component={PlaceholderScreen} />
-      <Tab.Screen name="Histórico" component={PlaceholderScreen} />
+      <Tab.Screen name="Histórico" component={HistoryScreen} />
       <Tab.Screen name="Carteira" component={PlaceholderScreen} />
     </Tab.Navigator>
   );
@@ -128,7 +153,7 @@ const AuthNavigator: React.FC = () => {
       <AuthStack.Screen
         name="Login"
         component={LoginScreen}
-        options={{ title: "Entrar" }}
+        options={{ title: "" }}
       />
       <AuthStack.Screen
         name="Register"
@@ -156,16 +181,20 @@ const AuthNavigator: React.FC = () => {
 
 // Placeholder para as telas não implementadas
 const PlaceholderScreen: React.FC = () => {
+  const { theme } = useTheme();
+
   return (
     <View
       style={{
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: "#121212",
+        backgroundColor: theme.background,
       }}
     >
-      <Text style={{ color: "#FFFFFF", fontSize: 16 }}>Em desenvolvimento</Text>
+      <Text style={{ color: theme.text, fontSize: 16 }}>
+        Em desenvolvimento
+      </Text>
     </View>
   );
 };
@@ -176,52 +205,53 @@ const PlaceholderScreen: React.FC = () => {
  */
 const AppNavigator: React.FC = () => {
   const { isAuthenticated, isLoading, login } = useAuth();
-  const [showAlert, setShowAlert] = useState(true);
+  const [isCheckingAuth, setIsCheckingAuth] = useState(true);
 
   // Função para realizar login automático com o usuário de teste
   const handleAutoLogin = async () => {
     try {
+      setIsCheckingAuth(true);
       await login({
         email: "user@yellot.mob",
         password: "123456789",
       });
     } catch (error) {
       console.error("Auto login error:", error);
-      Alert.alert("Erro", "Não foi possível realizar o login automático.");
+    } finally {
+      setIsCheckingAuth(false);
     }
   };
 
-  // Exibe o alerta de MVP ao iniciar o aplicativo apenas se não houver usuário no storage
+  // Exibe o alerta de MVP sempre que o usuário não estiver autenticado
   useEffect(() => {
-    const checkUserInStorage = async () => {
-      try {
-        const userInStorage = await AsyncStorage.getItem("@yellot_user");
-        if (!userInStorage && !isAuthenticated && !isLoading && showAlert) {
-          Alert.alert(
-            "Aplicativo MVP de Teste",
-            "Este aplicativo é um MVP de teste. Clique em continuar para poder utilizar o usuário teste.",
-            [
-              {
-                text: "Continuar",
-                onPress: () => {
-                  setShowAlert(false);
-                  handleAutoLogin();
-                },
-              },
-            ],
-            { cancelable: false }
-          );
-        }
-      } catch (error) {
-        console.error("Erro ao verificar usuário no storage:", error);
+    const showMvpAlert = async () => {
+      if (!isAuthenticated && !isLoading) {
+        await new Promise((resolve) => setTimeout(resolve, 500)); // Pequeno delay para garantir a transição
+
+        Alert.alert(
+          "Aplicativo MVP de Teste",
+          "Este aplicativo é um MVP de teste. Deseja utilizar o usuário teste?",
+          [
+            {
+              text: "Cancelar",
+              onPress: () => setIsCheckingAuth(false),
+              style: "cancel",
+            },
+            {
+              text: "Continuar",
+              onPress: handleAutoLogin,
+            },
+          ],
+          { cancelable: false }
+        );
       }
     };
 
-    checkUserInStorage();
-  }, [isAuthenticated, isLoading, showAlert]);
+    showMvpAlert();
+  }, [isAuthenticated, isLoading]);
 
   // Exibe um indicador de carregamento enquanto verifica a autenticação
-  if (isLoading) {
+  if (isLoading || isCheckingAuth) {
     return (
       <View
         style={{

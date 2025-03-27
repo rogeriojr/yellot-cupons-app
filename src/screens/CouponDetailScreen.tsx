@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   View,
   Text,
@@ -13,6 +13,7 @@ import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { useTheme } from "../contexts/ThemeContext";
 import { Coupon } from "../types/coupon";
+import { useCouponHistoryStore } from "../store/useCouponHistoryStore";
 
 type CouponDetailRouteProps = RouteProp<
   { CouponDetail: { coupon: Coupon } },
@@ -24,6 +25,12 @@ const CouponDetailScreen: React.FC = () => {
   const route = useRoute<CouponDetailRouteProps>();
   const { coupon } = route.params;
   const { theme } = useTheme();
+  const { addToHistory } = useCouponHistoryStore();
+
+  // Adicionar o cupom ao histórico quando a tela for carregada
+  useEffect(() => {
+    addToHistory(coupon);
+  }, [coupon]);
 
   const isActive = coupon.is_active;
   const expireDate = new Date(coupon.expire_at);

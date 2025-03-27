@@ -10,6 +10,7 @@ export type RootTabParamList = {
   Procurar: undefined;
   Histórico: undefined;
   Carteira: undefined;
+  Profile: undefined;
 };
 
 /**

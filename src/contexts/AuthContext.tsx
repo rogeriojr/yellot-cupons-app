@@ -55,35 +55,58 @@ interface AuthProviderProps {
 }
 
 /**
- * Provedor de autenticação
- * Fornece o contexto de autenticação para toda a aplicação
+ * Provedor do contexto de autenticação
  */
-export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-  // Obtém o estado e as ações da store de autenticação
+export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const {
     user,
     status,
     error,
-    login,
-    register,
-    logout,
-    forgotPassword,
-    resetPassword,
-    checkAuth,
-    clearError,
+    login: storeLogin,
+    register: storeRegister,
+    logout: storeLogout,
+    forgotPassword: storeForgotPassword,
+    resetPassword: storeResetPassword,
+    clearError: storeClearError,
   } = useAuthStore();
 
-  // Verifica a autenticação ao montar o componente
-  useEffect(() => {
-    checkAuth();
-  }, []);
-
-  // Valores derivados
-  const isAuthenticated = status === "authenticated";
+  // Verifica se o usuário está autenticado
+  const isAuthenticated = !!user;
+  
+  // Verifica se está carregando
   const isLoading = status === "loading";
 
-  // Valor do contexto
-  const value: AuthContextType = {
+  // Funções de autenticação
+  const login = async (credentials: LoginCredentials) => {
+    await storeLogin(credentials);
+  };
+
+  const register = async (data: RegisterData) => {
+    await storeRegister(data);
+  };
+
+  const logout = async () => {
+    await storeLogout();
+  };
+
+  const forgotPassword = async (email: string) => {
+    await storeForgotPassword(email);
+  };
+
+  const resetPassword = async (
+    token: string,
+    password: string,
+    confirmPassword: string
+  ) => {
+    await storeResetPassword(token, password, confirmPassword);
+  };
+
+  const clearError = () => {
+    storeClearError();
+  };
+
+  // Valores e funções expostos pelo contexto
+  const value = {
     user,
     status,
     error,

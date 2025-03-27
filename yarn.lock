@@ -1360,9 +1360,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@expo/cli@npm:0.22.21":
-  version: 0.22.21
-  resolution: "@expo/cli@npm:0.22.21"
+"@expo/cli@npm:0.22.22":
+  version: 0.22.22
+  resolution: "@expo/cli@npm:0.22.22"
   dependencies:
     "@0no-co/graphql.web": ^1.0.8
     "@babel/runtime": ^7.20.0
@@ -1438,7 +1438,7 @@ __metadata:
     ws: ^8.12.1
   bin:
     expo-internal: build/bin/cli
-  checksum: c4ea6fad5a2fd20e9d2120023182818c3a2c191b4aa3c42d4094775c7545b5a480488475891dffff7c3b7d0359850b9d081605146aa11d930ffb9516d8efdbb6
+  checksum: 12d0e4feef74386c36a1f6bb416e7b04f79f62da5a22127d7ea2cc0246a79cc94439dde4d596e99135efa29b18c96d95f68e43259fd708a3d4535d3960e552eb
   languageName: node
   linkType: hard
 
@@ -2942,6 +2942,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@react-navigation/elements@npm:^2.3.1":
+  version: 2.3.1
+  resolution: "@react-navigation/elements@npm:2.3.1"
+  dependencies:
+    color: ^4.2.3
+  peerDependencies:
+    "@react-native-masked-view/masked-view": ">= 0.2.0"
+    "@react-navigation/native": ^7.0.19
+    react: ">= 18.2.0"
+    react-native: "*"
+    react-native-safe-area-context: ">= 4.0.0"
+  peerDependenciesMeta:
+    "@react-native-masked-view/masked-view":
+      optional: true
+  checksum: 8fc410788f44e0e38af5b30020583dc1edb3d435c45425468604e904f939cf0ecbb48d8575a5c9fa0cfa53263bb0e0882cdce2ccce42e737d52202743b621f60
+  languageName: node
+  linkType: hard
+
 "@react-navigation/native-stack@npm:^6.9.17":
   version: 6.11.0
   resolution: "@react-navigation/native-stack@npm:6.11.0"
@@ -2979,6 +2997,23 @@ __metadata:
   dependencies:
     nanoid: ^3.1.23
   checksum: 3a3392ce095d6a2bd2aad69856f513b35774f943a3dc73d8ffb75127de6773203e3264188d87058bdea4c0c9a7d43ed28d0cbf3a1f1cdc086df3ee255d8e1e27
+  languageName: node
+  linkType: hard
+
+"@react-navigation/stack@npm:^7.2.3":
+  version: 7.2.3
+  resolution: "@react-navigation/stack@npm:7.2.3"
+  dependencies:
+    "@react-navigation/elements": ^2.3.1
+    color: ^4.2.3
+  peerDependencies:
+    "@react-navigation/native": ^7.0.19
+    react: ">= 18.2.0"
+    react-native: "*"
+    react-native-gesture-handler: ">= 2.0.0"
+    react-native-safe-area-context: ">= 4.0.0"
+    react-native-screens: ">= 4.0.0"
+  checksum: 785b204666d81cbd96a90433ca35f26a4723eb263544dce2de1bb99d61592e72427b6e6249eb1057a5cfbea98290ae826065aeed4cbc2d7fd6cb3d695632ecb8
   languageName: node
   linkType: hard
 
@@ -3087,11 +3122,11 @@ __metadata:
   linkType: hard
 
 "@types/babel__traverse@npm:*, @types/babel__traverse@npm:^7.0.6":
-  version: 7.20.6
-  resolution: "@types/babel__traverse@npm:7.20.6"
+  version: 7.20.7
+  resolution: "@types/babel__traverse@npm:7.20.7"
   dependencies:
     "@babel/types": ^7.20.7
-  checksum: 2bdc65eb62232c2d5c1086adeb0c31e7980e6fd7e50a3483b4a724a1a1029c84d9cb59749cf8de612f9afa2bc14c85b8f50e64e21f8a4398fa77eb9059a4283c
+  checksum: 2a2e5ad29c34a8b776162b0fe81c9ccb6459b2b46bf230f756ba0276a0258fcae1cbcfdccbb93a1e8b1df44f4939784ee8a1a269f95afe0c78b24b9cb6d50dd1
   languageName: node
   linkType: hard
 
@@ -3165,20 +3200,20 @@ __metadata:
   linkType: hard
 
 "@types/node@npm:*":
-  version: 22.13.13
-  resolution: "@types/node@npm:22.13.13"
+  version: 22.13.14
+  resolution: "@types/node@npm:22.13.14"
   dependencies:
     undici-types: ~6.20.0
-  checksum: 763c120725c4817227d3043095fd1e764744b2f3632e3e3c8242e1620a8e6fe1c9eeae38074dee3e39af6b890de142c3b6067f9b31e36635c44f3f5f4f2bb8cf
+  checksum: 8c5a3c1ec085bc320d6b19915406920e41bc482aed24098bf9858957ace22b762b50594a2805766b2d09966ea457dfad847b51a2d10dd4c1931955f80de598ce
   languageName: node
   linkType: hard
 
 "@types/node@npm:^18.0.0":
-  version: 18.19.83
-  resolution: "@types/node@npm:18.19.83"
+  version: 18.19.84
+  resolution: "@types/node@npm:18.19.84"
   dependencies:
     undici-types: ~5.26.4
-  checksum: 02f2f08aa97c7cc119e088576df3d8d0b13e077ea50b75cc3b6f0d9037da0f1fe5663b448b120cbe578ac0741bc6213d76d07853647da37c5367dac8e8395d5c
+  checksum: 2e04e0fb12b21c973412b52afdc6c2a718ec47710c69dc8c9582ec6229b0e1f692acbefd4c4d909f453e901087b62ff4c299a179fdba63a60c0d947e2b818967
   languageName: node
   linkType: hard
 
@@ -5068,9 +5103,9 @@ __metadata:
   linkType: hard
 
 "electron-to-chromium@npm:^1.5.73":
-  version: 1.5.123
-  resolution: "electron-to-chromium@npm:1.5.123"
-  checksum: cdcf83e58ccab30ed25a1aae35e54dbaa268efa8c8f01b57d1fbac62529f5d561218fb6b3bd518cc8d6c4fdd3ceda4f98081a96a1dffe34d51be295916542c31
+  version: 1.5.126
+  resolution: "electron-to-chromium@npm:1.5.126"
+  checksum: 06064617ddf997633a14d069e7e67073721ca90351fef039440ff71d53a4ed3cb34d0cbf9ced8816e2f3e71ef3363593d5afd18f14d82f120a747ace00ff1a70
   languageName: node
   linkType: hard
 
@@ -5573,11 +5608,11 @@ __metadata:
   linkType: hard
 
 "expo@npm:*":
-  version: 52.0.40
-  resolution: "expo@npm:52.0.40"
+  version: 52.0.41
+  resolution: "expo@npm:52.0.41"
   dependencies:
     "@babel/runtime": ^7.20.0
-    "@expo/cli": 0.22.21
+    "@expo/cli": 0.22.22
     "@expo/config": ~10.0.11
     "@expo/config-plugins": ~9.0.17
     "@expo/fingerprint": 0.11.11
@@ -5609,7 +5644,9 @@ __metadata:
       optional: true
   bin:
     expo: bin/cli
-  checksum: 1a87617789b128c1fc6e841785228f04e48a3915b2a609c8ba8d00f4b70decb6caf81de4bb09305349fbc8fae1c07b73ccdcbc8d46b0730a670f42f202b4eb9c
+    expo-modules-autolinking: bin/autolinking
+    fingerprint: bin/fingerprint
+  checksum: 19e14c19ed241d89f2858f8e732760dd4fa6305819dc733572d26600cf727696946916f5c9bd3147aa269a9d45b794ca5dfd8db60d587f4f5892592aa0e3d704
   languageName: node
   linkType: hard
 
@@ -9398,9 +9435,9 @@ __metadata:
   linkType: hard
 
 "pirates@npm:^4.0.1, pirates@npm:^4.0.4, pirates@npm:^4.0.6":
-  version: 4.0.6
-  resolution: "pirates@npm:4.0.6"
-  checksum: 46a65fefaf19c6f57460388a5af9ab81e3d7fd0e7bc44ca59d753cb5c4d0df97c6c6e583674869762101836d68675f027d60f841c105d72734df9dfca97cbcc6
+  version: 4.0.7
+  resolution: "pirates@npm:4.0.7"
+  checksum: 3dcbaff13c8b5bc158416feb6dc9e49e3c6be5fddc1ea078a05a73ef6b85d79324bbb1ef59b954cdeff000dbf000c1d39f32dc69310c7b78fbada5171b583e40
   languageName: node
   linkType: hard
 
@@ -12373,6 +12410,7 @@ __metadata:
     "@react-navigation/bottom-tabs": ^6.5.11
     "@react-navigation/native": ^6.1.9
     "@react-navigation/native-stack": ^6.9.17
+    "@react-navigation/stack": ^7.2.3
     "@types/expo": ^33.0.3
     "@types/node-forge": ^1.3.11
     "@types/prop-types": ^15.7.14
