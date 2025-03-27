@@ -9,6 +9,8 @@ Este aplicativo exibe uma lista de cupons obtidos de uma API, organizados por m√
 ## Screeshots
 ![image](https://github.com/user-attachments/assets/4aa8c735-63eb-47e0-bf57-8d12dbb716e3)
 
+![image](https://github.com/user-attachments/assets/09f45525-b832-4b5d-9e67-3ff419343e5a)
+
 
 ![image](https://github.com/user-attachments/assets/e5bdb80f-aaac-4a30-ba56-59ab74e6ac0f)
 
