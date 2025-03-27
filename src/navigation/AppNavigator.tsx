@@ -3,7 +3,7 @@ import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
-import { View, Text, ActivityIndicator, Alert } from "react-native";
+import { View, ActivityIndicator, Alert } from "react-native";
 import { useAuth } from "../contexts/AuthContext";
 import { useTheme } from "../contexts/ThemeContext";
 import ThemeToggle from "../components/ThemeToggle";
@@ -14,6 +14,7 @@ import CouponsScreen from "../screens/CouponsScreen";
 import ProfileScreen from "../screens/ProfileScreen";
 import CouponDetailScreen from "../screens/CouponDetailScreen";
 import HistoryScreen from "../screens/HistoryScreen";
+import SearchScreen from "../screens/SearchScreen";
 import WalletScreen from "../screens/WalletScreen";
 import {
   LoginScreen,
@@ -124,7 +125,7 @@ const TabNavigator: React.FC = () => {
           ),
         }}
       />
-      <Tab.Screen name="Procurar" component={PlaceholderScreen} />
+      <Tab.Screen name="Procurar" component={SearchScreen} />
       <Tab.Screen name="Histórico" component={HistoryScreen} />
       <Tab.Screen name="Carteira" component={WalletScreen} />
     </Tab.Navigator>
@@ -176,26 +177,6 @@ const AuthNavigator: React.FC = () => {
         options={{ headerShown: false }}
       />
     </AuthStack.Navigator>
-  );
-};
-
-// Placeholder para as telas não implementadas
-const PlaceholderScreen: React.FC = () => {
-  const { theme } = useTheme();
-
-  return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: theme.background,
-      }}
-    >
-      <Text style={{ color: theme.text, fontSize: 16 }}>
-        Em desenvolvimento
-      </Text>
-    </View>
   );
 };
 
