@@ -11,6 +11,7 @@ Este aplicativo exibe uma lista de cupons obtidos de uma API, organizados por m√
 
 ![image](https://github.com/user-attachments/assets/09f45525-b832-4b5d-9e67-3ff419343e5a)
 
+![image](https://github.com/user-attachments/assets/ccf082dc-a4ef-4c97-ae2f-1b9e99e36d7a)
 
 ![image](https://github.com/user-attachments/assets/e5bdb80f-aaac-4a30-ba56-59ab74e6ac0f)
 
