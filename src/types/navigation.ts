@@ -11,6 +11,7 @@ export type RootTabParamList = {
   Histórico: undefined;
   Carteira: undefined;
   Profile: undefined;
+  CouponDetail: { coupon: any };
 };
 
 /**

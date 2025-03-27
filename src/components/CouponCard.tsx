@@ -1,15 +1,17 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import { Coupon } from "../types/coupon";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { useTheme } from "../contexts/ThemeContext";
+import { useNavigation } from "@react-navigation/native";
 
 interface CouponCardProps {
   coupon: Coupon;
 }
 
 const CouponCard: React.FC<CouponCardProps> = ({ coupon }) => {
+  const navigation = useNavigation();
   const isActive = coupon.is_active;
   const expireDate = new Date(coupon.expire_at);
   const formattedDate = format(expireDate, "dd MMM", {
@@ -17,6 +19,20 @@ const CouponCard: React.FC<CouponCardProps> = ({ coupon }) => {
   });
 
   const { theme } = useTheme();
+
+  const getDiscountTypeText = () => {
+    if (coupon.type === "percentage") {
+      return "Desconto em %";
+    } else if (coupon.type === "fixed") {
+      return "Desconto fixo";
+    } else {
+      return coupon.type;
+    }
+  };
+
+  const handleViewDetails = () => {
+    navigation.navigate("CouponDetail" as never, { coupon } as never);
+  };
 
   return (
     <View
@@ -43,9 +59,14 @@ const CouponCard: React.FC<CouponCardProps> = ({ coupon }) => {
         <Text style={{ color: theme.secondaryText, fontSize: 12 }}>
           {formattedDate}
         </Text>
+        <Text
+          style={{ color: theme.secondaryText, fontSize: 12, marginTop: 4 }}
+        >
+          {getDiscountTypeText()}
+        </Text>
       </View>
 
-      <View style={{ flexDirection: "row", alignItems: "center" }}>
+      <View style={{ flexDirection: "column", alignItems: "flex-end" }}>
         <View
           style={{
             height: 8,
@@ -61,10 +82,23 @@ const CouponCard: React.FC<CouponCardProps> = ({ coupon }) => {
           style={{
             fontSize: 12,
             color: isActive ? theme.statusActive : theme.statusInactive,
+            marginBottom: 8,
           }}
         >
           {isActive ? "Ativo" : "Expirado"}
         </Text>
+
+        <TouchableOpacity
+          onPress={handleViewDetails}
+          style={{
+            backgroundColor: theme.primary,
+            paddingHorizontal: 12,
+            paddingVertical: 6,
+            borderRadius: 4,
+          }}
+        >
+          <Text style={{ color: "#FFFFFF", fontSize: 12 }}>Ver detalhes</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );

@@ -10,6 +10,7 @@ import { useAuth } from "../contexts/AuthContext";
 // Screens
 import CouponsScreen from "../screens/CouponsScreen";
 import ProfileScreen from "../screens/ProfileScreen";
+import CouponDetailScreen from "../screens/CouponDetailScreen";
 import {
   LoginScreen,
   RegisterScreen,
@@ -86,6 +87,14 @@ const TabNavigator: React.FC = () => {
       <Tab.Screen
         name="Profile"
         component={ProfileScreen}
+        options={{
+          tabBarButton: () => null,
+          tabBarVisible: false,
+        }}
+      />
+      <Tab.Screen
+        name="CouponDetail"
+        component={CouponDetailScreen}
         options={{
           tabBarButton: () => null,
           tabBarVisible: false,
