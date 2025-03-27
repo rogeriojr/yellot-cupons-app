@@ -1,13 +1,15 @@
 import axios from 'axios';
-import Constants from 'expo-constants';
+import { setupInterceptors } from './interceptors';
 
-// Criando uma instância do axios com configurações base
-const apiClient = axios.create({
-  baseURL: Constants.expoConfig?.extra?.apiUrl || 'https://api.yellotmob.com.br/discount/front-end-test/',
-  timeout: 10000,
-  headers: {
-    'Content-Type': 'application/json',
-  },
+
+/**
+ * Cliente Axios configurado com a URL base da API
+ */
+const api = axios.create({
+  baseURL: process.env.API_URL || 'https://api.yellotmob.com.br/discount/front-end-test',
 });
 
-export default apiClient;
+// Configura os interceptors para gerenciar tokens de autenticação
+setupInterceptors(api);
+
+export default api;
