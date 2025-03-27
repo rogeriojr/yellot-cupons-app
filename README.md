@@ -3,7 +3,6 @@
 Aplicativo de cupons desenvolvido com React Native, Expo, TypeScript e NativeWind.
 
 ## Sobre o Projeto
-![image](https://github.com/user-attachments/assets/3b99b73b-1af9-4ed4-93a9-cb1e43664778)
 
 Este aplicativo exibe uma lista de cupons obtidos de uma API, organizados por mês e com filtros de tempo. Os cupons são exibidos com informações como nome, data de validade e status (Ativo ou Expirado).
 
@@ -33,7 +32,7 @@ Este aplicativo exibe uma lista de cupons obtidos de uma API, organizados por m�
     </tr>
     <tr>
       <td align="center" width="50%">
-        <img src="[https://github.com/user-attachments/assets/e5bdb80f-aaac-4a30-ba56-59ab74e6ac50f](https://github.com/user-attachments/assets/3b99b73b-1af9-4ed4-93a9-cb1e43664778)" alt="Tela 5" width="100%"/>
+        <img src="https://github.com/user-attachments/assets/3b99b73b-1af9-4ed4-93a9-cb1e43664778" alt="Tela 5" width="100%"/>
         <p>Filtros</p>
       </td>
       <td align="center" width="50%">
