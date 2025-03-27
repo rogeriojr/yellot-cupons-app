@@ -7,9 +7,9 @@
  */
 export type RootTabParamList = {
   Cupons: undefined;
-  Promos: undefined;
-  Pedidos: undefined;
-  Ofertas: undefined;
+  Procurar: undefined;
+  Histórico: undefined;
+  Carteira: undefined;
 };
 
 /**

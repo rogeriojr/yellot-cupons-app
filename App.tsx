@@ -50,12 +50,12 @@ const AppContent = () => {
 
             if (route.name === "Cupons") {
               iconName = "ticket";
-            } else if (route.name === "Promos") {
+            } else if (route.name === "Procurar") {
               iconName = "flash";
-            } else if (route.name === "Pedidos") {
+            } else if (route.name === "Histórico") {
               iconName = "list";
-            } else if (route.name === "Ofertas") {
-              iconName = "gift";
+            } else if (route.name === "Carteira") {
+              iconName = "wallet";
             }
 
             return <Ionicons name={iconName} size={size} color={color} />;
@@ -95,9 +95,9 @@ const AppContent = () => {
             ),
           }}
         />
-        <Tab.Screen name="Promos" component={PlaceholderScreen} />
-        <Tab.Screen name="Pedidos" component={PlaceholderScreen} />
-        <Tab.Screen name="Ofertas" component={PlaceholderScreen} />
+        <Tab.Screen name="Procurar" component={PlaceholderScreen} />
+        <Tab.Screen name="Histórico" component={PlaceholderScreen} />
+        <Tab.Screen name="Carteira" component={PlaceholderScreen} />
       </Tab.Navigator>
       <StatusBar style={isDarkMode ? "light" : "dark"} />
     </NavigationContainer>
