@@ -35,8 +35,8 @@ class AuthService implements IAuthService {
         user: {
           id: '1',
           name: 'Usuário Teste',
-          email: validEmail,
-          password: validPassword,
+          email: validEmail ?? credentials.email,
+          password: validPassword ?? credentials.password,
           createdAt: new Date().toISOString()
         }
       };
