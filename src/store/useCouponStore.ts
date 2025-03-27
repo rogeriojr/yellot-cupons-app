@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import { Coupon, FilterDays } from '../types/coupon';
 import api from '../services/api';
+import { AxiosError, isAxiosError } from 'axios';
 
 interface CouponState {
   coupons: Coupon[];
@@ -10,6 +11,11 @@ interface CouponState {
   filterDays: FilterDays;
   fetchCoupons: () => Promise<void>;
   setFilterDays: (days: FilterDays) => void;
+}
+
+interface ApiErrorResponse {
+  message?: string;
+  [key: string]: unknown;
 }
 
 export const useCouponStore = create<CouponState>((set, get) => ({
@@ -22,9 +28,11 @@ export const useCouponStore = create<CouponState>((set, get) => ({
   fetchCoupons: async () => {
     console.log('🔄 [CouponStore] Iniciando busca de cupons...');
     set({ isLoading: true, error: null });
+
     try {
       console.log('🌐 [CouponStore] Fazendo requisição API...');
-      const response = await api.get('');
+      const response = await api.get<Coupon[]>('');
+
       console.log('✅ [CouponStore] Resposta da API:', {
         status: response.status,
         data: response.data,
@@ -43,21 +51,36 @@ export const useCouponStore = create<CouponState>((set, get) => ({
       if (filterDays) {
         get().setFilterDays(filterDays);
       }
-    } catch (error) {
-      console.error('❌ [CouponStore] Erro ao buscar cupons:', {
-        error: error,
-        response: error.response,
-        request: error.request
-      });
+    } catch (error: unknown) {
+      if (isAxiosError<ApiErrorResponse>(error)) {
+        console.error('❌ [CouponStore] Erro na requisição:', {
+          message: error.message,
+          code: error.code,
+          status: error.response?.status,
+          data: error.response?.data,
+          url: error.config?.url
+        });
 
-      const errorMessage = error.response
-        ? `Erro ${error.response.status}: ${error.response.data?.message || 'Sem detalhes'}`
-        : 'Erro ao carregar cupons. Tente novamente.';
+        const errorMessage = error.response?.data?.message
+          || (error.response?.status ? `Erro ${error.response.status}` : 'Erro na requisição');
 
-      set({
-        error: errorMessage,
-        isLoading: false
-      });
+        set({
+          error: errorMessage,
+          isLoading: false
+        });
+      } else if (error instanceof Error) {
+        console.error('❌ [CouponStore] Erro desconhecido:', error.message);
+        set({
+          error: 'Erro inesperado ao carregar cupons',
+          isLoading: false
+        });
+      } else {
+        console.error('❌ [CouponStore] Erro inesperado:', error);
+        set({
+          error: 'Ocorreu um erro desconhecido',
+          isLoading: false
+        });
+      }
     }
   },
 

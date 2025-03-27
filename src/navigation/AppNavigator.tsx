@@ -14,6 +14,7 @@ import CouponsScreen from "../screens/CouponsScreen";
 import ProfileScreen from "../screens/ProfileScreen";
 import CouponDetailScreen from "../screens/CouponDetailScreen";
 import HistoryScreen from "../screens/HistoryScreen";
+import WalletScreen from "../screens/WalletScreen";
 import {
   LoginScreen,
   RegisterScreen,
@@ -125,7 +126,7 @@ const TabNavigator: React.FC = () => {
       />
       <Tab.Screen name="Procurar" component={PlaceholderScreen} />
       <Tab.Screen name="Histórico" component={HistoryScreen} />
-      <Tab.Screen name="Carteira" component={PlaceholderScreen} />
+      <Tab.Screen name="Carteira" component={WalletScreen} />
     </Tab.Navigator>
   );
 };
