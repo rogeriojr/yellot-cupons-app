@@ -5,13 +5,16 @@ import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { useTheme } from "../contexts/ThemeContext";
 import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { RootTabParamList } from "../types/navigation";
 
 interface CouponCardProps {
   coupon: Coupon;
 }
 
 const CouponCard: React.FC<CouponCardProps> = ({ coupon }) => {
-  const navigation = useNavigation();
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RootTabParamList>>();
   const isActive = coupon.is_active;
   const expireDate = new Date(coupon.expire_at);
   const formattedDate = format(expireDate, "dd MMM", {
@@ -31,7 +34,7 @@ const CouponCard: React.FC<CouponCardProps> = ({ coupon }) => {
   };
 
   const handleViewDetails = () => {
-    navigation.navigate("CouponDetail" as never, { coupon } as never);
+    navigation.navigate("CouponDetail", { coupon });
   };
 
   return (

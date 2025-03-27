@@ -105,8 +105,7 @@ const AppContent = () => {
           name="Profile"
           component={ProfileScreen}
           options={{
-            tabBarButton: () => null,
-            tabBarVisible: false,
+            tabBarStyle: { display: "none" },
           }}
         />
       </Tab.Navigator>

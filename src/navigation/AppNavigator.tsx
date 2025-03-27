@@ -88,16 +88,14 @@ const TabNavigator: React.FC = () => {
         name="Profile"
         component={ProfileScreen}
         options={{
-          tabBarButton: () => null,
-          tabBarVisible: false,
+          tabBarStyle: { display: "none" },
         }}
       />
       <Tab.Screen
         name="CouponDetail"
         component={CouponDetailScreen}
         options={{
-          tabBarButton: () => null,
-          tabBarVisible: false,
+          tabBarStyle: { display: "none" },
         }}
       />
     </Tab.Navigator>

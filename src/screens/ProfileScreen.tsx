@@ -34,11 +34,7 @@ const ProfileScreen: React.FC = () => {
       await AsyncStorage.clear();
       await logout();
       // O AppNavigator já fará o redirecionamento automaticamente quando isAuthenticated mudar para false
-      // Mas podemos forçar a navegação para a tela de login para garantir
-      navigation.reset({
-        index: 0,
-        routes: [{ name: "Login" as never }],
-      });
+      // Não precisamos forçar a navegação, o AppNavigator cuidará disso
     } catch (error) {
       console.error("Erro ao fazer logout:", error);
     }
