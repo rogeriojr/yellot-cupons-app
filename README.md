@@ -6,6 +6,9 @@ Aplicativo de cupons desenvolvido com React Native, Expo, TypeScript e NativeWin
 
 Este aplicativo exibe uma lista de cupons obtidos de uma API, organizados por mês e com filtros de tempo. Os cupons são exibidos com informações como nome, data de validade e status (Ativo ou Expirado).
 
+## Link do APK (Android)
+https://drive.google.com/file/d/1nBMw42yoLdXP3P-JuRq0A_ozv8agK21j/view?usp=sharing
+
 ## 📱 Screenshots
 
 <div align="center">
