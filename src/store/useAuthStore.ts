@@ -7,6 +7,18 @@ import { clearAuthData, getStoredTokens, getStoredUser, setStoredTokens, setStor
  * Interface para o estado de autenticação
  */
 interface AuthState {
+  isAuthenticated: boolean;
+  isLoading: boolean;
+  accessToken: null;
+  refreshToken: null;
+  setUser(mockUser: { id: string; name: string; email: string; avatar: null; }): unknown;
+  setTokens(mockTokens: { accessToken: string; refreshToken: string; }): unknown;
+  setIsAuthenticated /**
+ * Registra um novo usuário
+ * @param data Dados de registro
+ */(arg0: boolean): unknown;
+  setIsLoading(arg0: boolean): unknown;
+  setError(errorMessage: string): unknown;
   // Estado
   user: User | null;
   status: AuthStatus;

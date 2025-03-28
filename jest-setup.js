@@ -1,15 +1,4 @@
-// Configuração global para testes
-global.fetch = jest.fn();
-
-// Suprimir warnings de console durante testes
-console.error = jest.fn();
-console.warn = jest.fn();
-
-// Importações de extensões do Jest
-import "@testing-library/jest-native/extend-expect";
-import "jest-styled-components";
-
-// Mock para animações do React Native
+// Configuração básica do Jest
 jest.mock("react-native/Libraries/Animated/NativeAnimatedHelper");
 
 // Mock para o AsyncStorage

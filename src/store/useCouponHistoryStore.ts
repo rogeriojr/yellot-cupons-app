@@ -5,6 +5,13 @@ import { Coupon } from '../types/coupon';
 import { StateCreator } from 'zustand';
 
 interface CouponHistoryState {
+  history: never[];
+  isLoading: boolean;
+  error: null;
+  loadHistory(): unknown;
+  setIsLoading(arg0: boolean): unknown;
+  setError(errorMessage: string): unknown;
+  clearError(): unknown;
   viewedCoupons: Coupon[];
   addToHistory: (coupon: Coupon) => void;
   clearHistory: () => void;

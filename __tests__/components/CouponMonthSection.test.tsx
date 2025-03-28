@@ -68,7 +68,7 @@ describe("CouponMonthSection", () => {
   it("renders empty section when no coupons are provided", () => {
     const { getByText, queryAllByTestId } = render(
       <ThemeContext.Provider value={mockTheme}>
-        <CouponMonthSection month="julho" year="2023" coupons={[]} />
+        <CouponMonthSection month="julho" coupons={[]} />
       </ThemeContext.Provider>
     );
 

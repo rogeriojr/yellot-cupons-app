@@ -39,7 +39,7 @@ describe("FilterBar", () => {
     jest.clearAllMocks();
 
     // Mock padrão do store
-    (useCouponStore as jest.Mock).mockReturnValue({
+    (useCouponStore as unknown as jest.Mock).mockReturnValue({
       filterDays: null,
       setFilterDays: mockSetFilterDays,
     });
@@ -75,7 +75,7 @@ describe("FilterBar", () => {
 
   it("calls setFilterDays with null when the active filter is pressed again", () => {
     // Mock do store com um filtro ativo
-    (useCouponStore as jest.Mock).mockReturnValue({
+    (useCouponStore as unknown as jest.Mock).mockReturnValue({
       filterDays: 7,
       setFilterDays: mockSetFilterDays,
     });
@@ -95,7 +95,7 @@ describe("FilterBar", () => {
 
   it("applies different styles to active and inactive filters", () => {
     // Mock do store com um filtro ativo
-    (useCouponStore as jest.Mock).mockReturnValue({
+    (useCouponStore as unknown as jest.Mock).mockReturnValue({
       filterDays: 15,
       setFilterDays: mockSetFilterDays,
     });

@@ -22,7 +22,13 @@ const mockTheme = {
     iconBackground: "#2A2A2A",
     statusActive: "#4CAF50",
     statusInactive: "#F44336",
+    primary: "#5956E9",
+    filterBackground: "#333333",
+    filterBorder: "#FFCC00",
+    filterActiveText: "#FFFFFF",
+    filterInactiveText: "#AAAAAA",
   },
+  isDarkMode: true,
   toggleTheme: jest.fn(),
 };
 
@@ -34,7 +40,7 @@ describe("CouponHeader", () => {
 
   it("renders correctly with no coupons", () => {
     // Mock do store com array vazio de cupons
-    (useCouponStore as jest.Mock).mockReturnValue({
+    (useCouponStore as unknown as jest.Mock).mockReturnValue({
       coupons: [],
     });
 
@@ -96,7 +102,7 @@ describe("CouponHeader", () => {
       },
     ];
 
-    (useCouponStore as jest.Mock).mockReturnValue({
+    (useCouponStore as unknown as jest.Mock).mockReturnValue({
       coupons: mockCoupons,
     });
 

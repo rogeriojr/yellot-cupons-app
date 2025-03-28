@@ -50,9 +50,7 @@ describe('useCouponHistoryStore', () => {
   it('should add coupon to history', () => {
     const { result } = renderHook(() => useCouponHistoryStore());
 
-    act(() => {
-      result.current.addToHistory(mockHistoryItem);
-    });
+    act(() => result.current.addToHistory(mockCoupon));
 
     expect(result.current.history).toHaveLength(1);
     expect(result.current.history[0]).toEqual(mockHistoryItem);
@@ -85,7 +83,7 @@ describe('useCouponHistoryStore', () => {
   it('should handle loading errors', async () => {
     // Configura o mock para lançar um erro
     const errorMessage = 'Erro ao carregar histórico';
-    (AsyncStorage.getItem as jest.Mock).mockRejectedValue(new Error(errorMessage));
+    (AsyncStorage.getItem as jest.Mock).mockRejectedValue(new Error(errorMessage) as never);
 
     const { result, waitForNextUpdate } = renderHook(() => useCouponHistoryStore());
 
@@ -104,9 +102,7 @@ describe('useCouponHistoryStore', () => {
     const { result } = renderHook(() => useCouponHistoryStore());
 
     // Primeiro, adiciona um item ao histórico
-    act(() => {
-      result.current.addToHistory(mockHistoryItem);
-    });
+    act(() => result.current.addToHistory(mockHistoryItem));
 
     expect(result.current.history).toHaveLength(1);
 

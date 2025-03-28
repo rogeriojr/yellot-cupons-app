@@ -39,7 +39,7 @@ describe("ThemeContext", () => {
     const { result, waitForNextUpdate } = renderHook(
       () => React.useContext(ThemeContext),
       {
-        wrapper,
+        wrapper: wrapper as React.ComponentType,
       }
     );
 
@@ -47,8 +47,8 @@ describe("ThemeContext", () => {
     await waitForNextUpdate();
 
     // Verifica se o tema inicial é o dark
-    expect(result.current.isDarkMode).toBe(true);
-    expect(result.current.theme).toEqual(darkTheme);
+    expect(result?.current?.isDarkMode).toBe(true);
+    expect(result?.current?.theme).toEqual(darkTheme);
   });
 
   it("should load saved theme preference from AsyncStorage", async () => {
@@ -62,7 +62,7 @@ describe("ThemeContext", () => {
     const { result, waitForNextUpdate } = renderHook(
       () => React.useContext(ThemeContext),
       {
-        wrapper,
+        wrapper: wrapper as React.ComponentType,
       }
     );
 
@@ -70,8 +70,8 @@ describe("ThemeContext", () => {
     await waitForNextUpdate();
 
     // Verifica se o tema carregado é o light
-    expect(result.current.isDarkMode).toBe(false);
-    expect(result.current.theme).toEqual(lightTheme);
+    expect(result?.current?.isDarkMode).toBe(false);
+    expect(result?.current?.theme).toEqual(lightTheme);
     expect(AsyncStorage.getItem).toHaveBeenCalledWith("@yellot_theme_mode");
   });
 
@@ -86,7 +86,7 @@ describe("ThemeContext", () => {
     const { result, waitForNextUpdate } = renderHook(
       () => React.useContext(ThemeContext),
       {
-        wrapper,
+        wrapper: wrapper as React.ComponentType,
       }
     );
 
@@ -94,17 +94,17 @@ describe("ThemeContext", () => {
     await waitForNextUpdate();
 
     // Verifica o tema inicial
-    expect(result.current.isDarkMode).toBe(true);
-    expect(result.current.theme).toEqual(darkTheme);
+    expect(result?.current?.isDarkMode).toBe(true);
+    expect(result?.current?.theme).toEqual(darkTheme);
 
     // Alterna o tema
     act(() => {
-      result.current.toggleTheme();
+      result?.current?.toggleTheme();
     });
 
     // Verifica se o tema foi alternado para light
-    expect(result.current.isDarkMode).toBe(false);
-    expect(result.current.theme).toEqual(lightTheme);
+    expect(result?.current?.isDarkMode).toBe(false);
+    expect(result?.current?.theme).toEqual(lightTheme);
     expect(AsyncStorage.setItem).toHaveBeenCalledWith(
       "@yellot_theme_mode",
       "light"
@@ -112,12 +112,12 @@ describe("ThemeContext", () => {
 
     // Alterna o tema novamente
     act(() => {
-      result.current.toggleTheme();
+      result?.current?.toggleTheme();
     });
 
     // Verifica se o tema foi alternado de volta para dark
-    expect(result.current.isDarkMode).toBe(true);
-    expect(result.current.theme).toEqual(darkTheme);
+    expect(result?.current?.isDarkMode).toBe(true);
+    expect(result?.current?.theme).toEqual(darkTheme);
     expect(AsyncStorage.setItem).toHaveBeenCalledWith(
       "@yellot_theme_mode",
       "dark"
@@ -138,7 +138,7 @@ describe("ThemeContext", () => {
     const { result, waitForNextUpdate } = renderHook(
       () => React.useContext(ThemeContext),
       {
-        wrapper,
+        wrapper: wrapper as React.ComponentType,
       }
     );
 
@@ -146,8 +146,8 @@ describe("ThemeContext", () => {
     await waitForNextUpdate();
 
     // Verifica se o tema padrão é usado quando há um erro
-    expect(result.current.isDarkMode).toBe(true);
-    expect(result.current.theme).toEqual(darkTheme);
+    expect(result?.current?.isDarkMode).toBe(true);
+    expect(result?.current?.theme).toEqual(darkTheme);
     expect(consoleErrorSpy).toHaveBeenCalled();
 
     consoleErrorSpy.mockRestore();
