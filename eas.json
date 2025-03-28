@@ -1,22 +1,17 @@
 {
   "cli": {
-    "version": "latest"
+    "version": ">= 10.2.3"
   },
   "build": {
+    "preview": {
+      "android": {
+        "buildType": "apk",
+        "gradleCommand": ":app:assembleRelease"
+      }
+    },
     "production": {
       "android": {
         "buildType": "apk"
-      }
-    }
-  },
-  "submit": {
-    "production": {
-      "android": {
-        "serviceAccountKeyPath": "insira_o_caminho_do_arquivo_aqui.json",
-        "track": "internal"
-      },
-      "ios": {
-        "appleId": "insira_seu_email@exemplo.com"
       }
     }
   }

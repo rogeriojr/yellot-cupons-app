@@ -12,6 +12,7 @@ const ThemeToggle: React.FC<ThemeToggleProps> = ({ size = 24 }) => {
 
   return (
     <TouchableOpacity
+      testID="theme-toggle-button"
       onPress={toggleTheme}
       style={{
         padding: 8,
@@ -21,9 +22,19 @@ const ThemeToggle: React.FC<ThemeToggleProps> = ({ size = 24 }) => {
     >
       <View>
         {isDarkMode ? (
-          <Ionicons name="sunny" size={size} color={theme.statusActive} />
+          <Ionicons
+            testID="theme-toggle-icon"
+            name="sunny"
+            size={size}
+            color={theme.statusActive}
+          />
         ) : (
-          <Ionicons name="moon" size={size} color={theme.primary} />
+          <Ionicons
+            testID="theme-toggle-icon"
+            name="moon"
+            size={size}
+            color={theme.primary}
+          />
         )}
       </View>
     </TouchableOpacity>

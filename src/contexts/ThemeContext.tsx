@@ -51,7 +51,10 @@ interface ThemeContextType {
   toggleTheme: () => void;
 }
 
-const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
+// Exportando o ThemeContext para ser usado nos testes
+export const ThemeContext = createContext<ThemeContextType | undefined>(
+  undefined
+);
 
 const THEME_STORAGE_KEY = "@yellot_theme_mode";
 

@@ -23,6 +23,7 @@ const UserIcon: React.FC<UserIconProps> = ({ size = 24 }) => {
 
   return (
     <TouchableOpacity
+      testID="user-icon-button"
       onPress={handlePress}
       style={{
         padding: 8,
@@ -31,7 +32,12 @@ const UserIcon: React.FC<UserIconProps> = ({ size = 24 }) => {
       }}
     >
       <View>
-        <Ionicons name="person" size={size} color={theme.primary} />
+        <Ionicons
+          testID="user-icon"
+          name="person"
+          size={size}
+          color={theme.primary}
+        />
       </View>
     </TouchableOpacity>
   );
