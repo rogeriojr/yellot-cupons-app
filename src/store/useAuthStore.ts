@@ -7,22 +7,14 @@ import { clearAuthData, getStoredTokens, getStoredUser, setStoredTokens, setStor
  * Interface para o estado de autenticação
  */
 interface AuthState {
-  isAuthenticated: boolean;
-  isLoading: boolean;
-  accessToken: null;
-  refreshToken: null;
-  setUser(mockUser: { id: string; name: string; email: string; avatar: null; }): unknown;
-  setTokens(mockTokens: { accessToken: string; refreshToken: string; }): unknown;
-  setIsAuthenticated /**
- * Registra um novo usuário
- * @param data Dados de registro
- */(arg0: boolean): unknown;
-  setIsLoading(arg0: boolean): unknown;
-  setError(errorMessage: string): unknown;
   // Estado
   user: User | null;
   status: AuthStatus;
   error: string | null;
+  isAuthenticated: boolean;
+  isLoading: boolean;
+  accessToken: string | null;
+  refreshToken: string | null;
 
   // Ações
   login: (credentials: LoginCredentials) => Promise<void>;
@@ -32,6 +24,13 @@ interface AuthState {
   resetPassword: (token: string, password: string, confirmPassword: string) => Promise<void>;
   checkAuth: () => Promise<void>;
   clearError: () => void;
+
+  // Métodos auxiliares para testes
+  setUser: (user: User | { id: string; name: string; email: string; avatar: null; }) => void;
+  setTokens: (tokens: { accessToken: string; refreshToken: string; }) => void;
+  setIsAuthenticated: (isAuthenticated: boolean) => void;
+  setIsLoading: (isLoading: boolean) => void;
+  setError: (errorMessage: string) => void;
 }
 
 /**
@@ -43,6 +42,10 @@ export const useAuthStore = create<AuthState>((set, get) => ({
   user: null,
   status: 'idle',
   error: null,
+  isAuthenticated: false,
+  isLoading: false,
+  accessToken: null,
+  refreshToken: null,
 
   /**
    * Realiza o login do usuário
@@ -194,4 +197,42 @@ export const useAuthStore = create<AuthState>((set, get) => ({
   clearError: () => {
     set({ error: null });
   },
+
+  /**
+   * Define o usuário atual (usado principalmente para testes)
+   */
+  setUser: (user) => {
+    set({ user: user as User });
+    // Type assertion to ensure user matches the User type
+    setStoredUser(user as User);
+  },
+
+  /**
+   * Define os tokens de autenticação (usado principalmente para testes)
+   */
+  setTokens: (tokens) => {
+    set({ accessToken: tokens.accessToken, refreshToken: tokens.refreshToken });
+    setStoredTokens(tokens);
+  },
+
+  /**
+   * Define o estado de autenticação (usado principalmente para testes)
+   */
+  setIsAuthenticated: (isAuthenticated) => {
+    set({ isAuthenticated });
+  },
+
+  /**
+   * Define o estado de carregamento (usado principalmente para testes)
+   */
+  setIsLoading: (isLoading) => {
+    set({ isLoading });
+  },
+
+  /**
+   * Define o erro atual (usado principalmente para testes)
+   */
+  setError: (errorMessage) => {
+    set({ error: errorMessage });
+  }
 }));

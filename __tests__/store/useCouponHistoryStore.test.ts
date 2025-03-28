@@ -63,7 +63,7 @@ describe('useCouponHistoryStore', () => {
   it('should load history from AsyncStorage', async () => {
     // Configura o mock para retornar um histórico salvo
     (AsyncStorage.getItem as jest.Mock).mockResolvedValue(
-      JSON.stringify([mockHistoryItem])
+      JSON.stringify([mockHistoryItem]) as never
     );
 
     const { result, waitForNextUpdate } = renderHook(() => useCouponHistoryStore());
@@ -102,7 +102,7 @@ describe('useCouponHistoryStore', () => {
     const { result } = renderHook(() => useCouponHistoryStore());
 
     // Primeiro, adiciona um item ao histórico
-    act(() => result.current.addToHistory(mockHistoryItem));
+    act(() => result.current.addToHistory(mockCoupon));
 
     expect(result.current.history).toHaveLength(1);
 
