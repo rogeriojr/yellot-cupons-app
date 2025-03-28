@@ -7,6 +7,7 @@ Aplicativo de cupons desenvolvido com React Native, Expo, TypeScript e NativeWin
 Este aplicativo exibe uma lista de cupons obtidos de uma API, organizados por mês e com filtros de tempo. Os cupons são exibidos com informações como nome, data de validade e status (Ativo ou Expirado).
 
 ## Link do APK (Android)
+
 https://drive.google.com/file/d/1nBMw42yoLdXP3P-JuRq0A_ozv8agK21j/view?usp=sharing
 
 ## 📱 Screenshots
@@ -66,7 +67,6 @@ https://drive.google.com/file/d/1nBMw42yoLdXP3P-JuRq0A_ozv8agK21j/view?usp=shari
   </table>
 </div>
 
-
 ## Requisitos
 
 - Node.js (versão 16 ou superior)
@@ -98,35 +98,135 @@ npm start
 
 ## Tecnologias Utilizadas
 
-- React Native
-- Expo (SDK 51+)
-- TypeScript
-- NativeWind (TailwindCSS para React Native)
-- Zustand (Gerenciamento de estado)
-- Axios (Requisições HTTP)
+- **React Native**: Framework para desenvolvimento de aplicativos móveis
+- **Expo (SDK 51+)**: Plataforma para desenvolvimento React Native
+- **TypeScript**: Superset tipado de JavaScript
+- **NativeWind**: Implementação do TailwindCSS para React Native
+- **Zustand**: Gerenciamento de estado global
+- **React Navigation**: Navegação entre telas
+- **Axios**: Cliente HTTP para requisições à API
+- **Date-fns**: Manipulação de datas
+- **Jest**: Framework de testes
+- **React Native Reanimated**: Animações fluidas
+- **React Native Gesture Handler**: Gestos e interações
+
+## Arquitetura do Projeto
+
+O projeto segue os princípios SOLID e utiliza uma arquitetura baseada em componentes, com separação clara de responsabilidades:
+
+### Estrutura de Diretórios
+
+```
+src/
+  ├── components/       # Componentes reutilizáveis da UI
+  │   ├── CouponCard.tsx
+  │   ├── CouponHeader.tsx
+  │   ├── CouponMonthSection.tsx
+  │   ├── FilterBar.tsx
+  │   ├── ThemeToggle.tsx
+  │   └── UserIcon.tsx
+  ├── contexts/         # Contextos React (ThemeContext, AuthContext)
+  │   ├── AuthContext.tsx
+  │   └── ThemeContext.tsx
+  ├── navigation/       # Configuração de navegação
+  │   └── AppNavigator.tsx
+  ├── screens/          # Telas da aplicação
+  │   ├── auth/         # Telas de autenticação
+  │   │   ├── LoginScreen.tsx
+  │   │   ├── RegisterScreen.tsx
+  │   │   ├── ForgotPasswordScreen.tsx
+  │   │   ├── ResetPasswordScreen.tsx
+  │   │   └── TermsScreen.tsx
+  │   ├── CouponDetailScreen.tsx
+  │   ├── CouponsScreen.tsx
+  │   ├── HistoryScreen.tsx
+  │   ├── ProfileScreen.tsx
+  │   ├── SearchScreen.tsx
+  │   └── WalletScreen.tsx
+  ├── services/         # Serviços e integrações
+  │   ├── api.ts        # Configuração do Axios
+  │   ├── interfaces/   # Interfaces para serviços (SOLID)
+  │   └── implementations/ # Implementações concretas
+  ├── store/            # Gerenciamento de estado global (Zustand)
+  │   ├── useAuthStore.ts
+  │   ├── useCouponStore.ts
+  │   └── useCouponHistoryStore.ts
+  ├── types/            # Definições de tipos TypeScript
+  │   ├── auth.ts
+  │   ├── coupon.ts
+  │   └── navigation.ts
+  └── utils/            # Funções utilitárias
+      ├── authUtils.ts
+      └── couponUtils.ts
+```
+
+## Fluxo de Autenticação
+
+O aplicativo utiliza um sistema de autenticação mockado para fins de demonstração:
+
+1. **Login**: Utiliza credenciais hardcoded (email: `user@yellot.mob`, senha: `123456789`)
+2. **Registro**: Simula o cadastro de um novo usuário
+3. **Recuperação de Senha**: Simula o envio de email para recuperação
+
+O fluxo de autenticação é gerenciado pelo `AuthContext` e `useAuthStore`, que seguem o padrão de gerenciamento de estado com Zustand.
+
+### Armazenamento Local
+
+Os dados de autenticação são persistidos usando `AsyncStorage`, permitindo que o usuário permaneça logado entre sessões.
+
+## Gerenciamento de Estado
+
+O aplicativo utiliza Zustand para gerenciamento de estado global, com stores separadas para diferentes domínios:
+
+- **useAuthStore**: Gerencia estado de autenticação
+- **useCouponStore**: Gerencia os cupons e filtros
+- **useCouponHistoryStore**: Gerencia o histórico de cupons utilizados
+
+## Tema e Estilização
+
+O aplicativo suporta temas claro e escuro, implementados através do `ThemeContext`. A estilização é feita com NativeWind (TailwindCSS para React Native).
+
+## Testes
+
+O projeto inclui testes unitários e de componentes utilizando Jest e React Testing Library:
+
+```bash
+# Executar todos os testes
+yarn test
+
+# Executar testes com watch mode
+yarn test:watch
+
+# Executar testes com cobertura
+yarn test:coverage
+```
+
+Os testes estão organizados em:
+
+- **Testes de Componentes**: `__tests__/components/`
+- **Testes de Contextos**: `__tests__/contexts/`
+- **Testes de Stores**: `__tests__/store/`
 
 ## Funcionalidades
 
 - Exibição de cupons agrupados por mês
 - Filtro de cupons por período (7, 15, 30 e 90 dias)
 - Exibição da quantidade total de cupons e cupons disponíveis
-- Menu de navegação inferior
+- Tema claro/escuro
+- Autenticação (mockada)
+- Histórico de cupons
+- Perfil de usuário
+- Carteira virtual
+- Pesquisa de cupons
 
-## Estrutura do Projeto
+## Contribuição
 
-```
-src/
-  ├── assets/         # Imagens e recursos estáticos
-  ├── components/     # Componentes reutilizáveis
-  ├── hooks/          # Hooks personalizados
-  ├── screens/        # Telas do aplicativo
-  ├── services/       # Serviços de API
-  ├── store/          # Gerenciamento de estado (Zustand)
-  ├── types/          # Definições de tipos TypeScript
-  └── utils/          # Funções utilitárias
-```
+1. Faça o fork do projeto
+2. Crie uma branch para sua feature (`git checkout -b feature/nova-feature`)
+3. Commit suas mudanças (`git commit -m 'Adiciona nova feature'`)
+4. Push para a branch (`git push origin feature/nova-feature`)
+5. Abra um Pull Request
 
 ## Licença
 
 MIT
-# yellot-cupons-app
