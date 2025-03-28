@@ -53,7 +53,7 @@ describe("CouponMonthSection", () => {
 
     const { getByText, getAllByTestId } = render(
       <ThemeContext.Provider value={mockTheme}>
-        <CouponMonthSection month="junho" year="2023" coupons={mockCoupons} />
+        <CouponMonthSection month="junho" coupons={mockCoupons} />
       </ThemeContext.Provider>
     );
 
