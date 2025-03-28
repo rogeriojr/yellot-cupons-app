@@ -188,24 +188,57 @@ O aplicativo suporta temas claro e escuro, implementados através do `ThemeConte
 
 ## Testes
 
-O projeto inclui testes unitários e de componentes utilizando Jest e React Testing Library:
+O projeto inclui testes unitários e de componentes utilizando Jest e React Testing Library. A estrutura de testes foi projetada para garantir a qualidade e confiabilidade do código.
+
+### Executando os Testes
 
 ```bash
 # Executar todos os testes
 yarn test
 
-# Executar testes com watch mode
+# Executar testes com watch mode (desenvolvimento)
 yarn test:watch
 
 # Executar testes com cobertura
 yarn test:coverage
+
+# Executar apenas testes de componentes
+yarn test:components
+
+# Executar apenas testes de contextos
+yarn test:contexts
+
+# Executar apenas testes de stores
+yarn test:store
+
+# Executar testes em ambiente de CI
+yarn test:ci
 ```
+
+### Estrutura de Testes
 
 Os testes estão organizados em:
 
-- **Testes de Componentes**: `__tests__/components/`
-- **Testes de Contextos**: `__tests__/contexts/`
-- **Testes de Stores**: `__tests__/store/`
+- **Testes de Componentes**: `__tests__/components/` - Testes para componentes de UI
+- **Testes de Contextos**: `__tests__/contexts/` - Testes para contextos React
+- **Testes de Stores**: `__tests__/store/` - Testes para stores Zustand
+
+### Configuração de Testes
+
+A configuração dos testes está definida nos seguintes arquivos:
+
+- `jest.config.js` - Configuração principal do Jest
+- `jest-setup.js` - Configuração de setup para os testes
+- `setupTests.js` - Configurações adicionais e mocks globais
+
+### Mocks
+
+O projeto utiliza mocks para:
+
+- AsyncStorage
+- Animações do React Native
+- SVG
+- Requisições de API (fetch)
 
 ## Funcionalidades
 
@@ -230,3 +263,9 @@ Os testes estão organizados em:
 ## Licença
 
 MIT
+
+## Direitos Autorais
+
+Desenvolvido por [rogeriojr](https://github.com/rogeriojr).
+
+© 2024 Rogério Jr. Todos os direitos reservados.
