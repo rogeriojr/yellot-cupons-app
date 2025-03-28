@@ -22,7 +22,15 @@ const mockTheme = {
     border: "#333333",
     notification: "#5956E9",
     iconBackground: "#2A2A2A",
+    primary: "#5956E9",
+    filterBackground: "#333333",
+    filterBorder: "#FFCC00",
+    filterActiveText: "#FFFFFF",
+    filterInactiveText: "#AAAAAA",
+    statusActive: "#FFCC00",
+    statusInactive: "#FF6B6B",
   },
+  isDarkMode: true,
   toggleTheme: jest.fn(),
 };
 
